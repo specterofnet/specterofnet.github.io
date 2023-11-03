@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>Zk-STRAKs VS Zk-SNARKs | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        Zk-STRAKs VS Zk-SNARKs
+    </div>
+    <p class="sub">9月 20 2022</p>
+    <div class="post-content">
+        <p>在不断发展的区块链领域，<a target="_blank" rel="noopener" href="https://hacken.io/discover/zero-knowledge-proof/">零知识证明</a>已成为最强大的加密技术，可提供更多隐私和可扩展性。也称为知识论证，它们生成某些计算具有特定输出的证明，同时非常快速地验证该证明。零知识（ZK）部分是额外的隐私奖励，可以隐藏一些计输入。</p>
+<h1 id="零知识证明简介"><a href="#零知识证明简介" class="headerlink" title="零知识证明简介"></a>零知识证明简介</h1><p>零知识协议是一种使用 ZK 证明的方法，允许一方快速证明计算具有特定输出，而无需透露该计算的特定输入。需要证明和验证的秘密信息称为证人。</p>
+<h2 id="它是如何运作的呢？"><a href="#它是如何运作的呢？" class="headerlink" title="它是如何运作的呢？"></a>它是如何运作的呢？</h2><p>ZK 证明由一些非常聪明但非常复杂的数学提供支持，我们仅在此概述。考虑一次大规模计算，我们使用输入数字对某些内容进行编码，然后对其进行哈希一百万次。“简洁”证明旨在验证计算中的特定输出，而无需镜像每个步骤。验证者通过随机抽样，只检查总部分的一小部分，而不是检查每个计算部分。如果这些检查通过，则假定整个计算可能是正确的。</p>
+<h2 id="ZK-证明对于区块链的巨大价值"><a href="#ZK-证明对于区块链的巨大价值" class="headerlink" title="ZK 证明对于区块链的巨大价值"></a>ZK 证明对于区块链的巨大价值</h2><p>ZK 证明带来两个重要的好处：</p>
+<ul>
+<li><p>可扩展性：对于需要很长时间才能验证的区块，只有一个人可以进行计算并生成证明，例如 zk-SNAR 或 zk-STARK。其他网络参与者只需验证证明即可。</p>
+</li>
+<li><p>隐私：利用 ZK 隐藏计算输入使各方能够以增强的隐私进行交易，从而防止向公众泄露无关信息。例如，您可以验证余额中是否有足够的 ETH 进行购买，而无需暴露加密货币的原始发送者。</p>
+</li>
+</ul>
+<p>由于这些强大的优势，zk-SNARKs 和 zk-STARs 等加密工具非常适合第 2 层可扩展性——可靠地确认链下转换，而无需在主网络上重新执行。</p>
+<h1 id="ZK-SNARK-与-ZK-STARK"><a href="#ZK-SNARK-与-ZK-STARK" class="headerlink" title="ZK-SNARK 与 ZK-STARK"></a>ZK-SNARK 与 ZK-STARK</h1><p>zk-SNARK 和 zk-STARK 都指的是以真正高效且私密的方式验证证明的相同加密技术。然而，这两个工具的实现方式有所不同。SNARK 产生简洁且非交互式的证明，而 STARK 则产生可扩展且透明的证明。接下来我们将介绍其中的差异。</p>
+<h2 id="什么是-zk-SNARK？"><a href="#什么是-zk-SNARK？" class="headerlink" title="什么是 zk-SNARK？"></a>什么是 zk-SNARK？</h2><p>zk-SNARK代表零知识简洁非交互式知识论证，是一种非交互式零知识证明，目前广泛用于构建零知识协议。像 Zcash 这样的隐私币使用它们来提供受保护的区块链体验，同时提供足够的证据来证明每笔受保护的交易都是有效的。</p>
+<ul>
+<li><p>ZK：这对代表“零知识”，表示该证明除了提交者声明的有效性之外不提供其他信息。任何描述交易性质、交易参与者和交换价值的信息都不会向验证者透露。</p>
+</li>
+<li><p>S：这个字母代表“简洁”，意味着证明尺寸很小（占用空间很小），为快速、轻松的验证铺平了道路。</p>
+</li>
+<li><p>N：代表非交互式，意味着证明者和验证者之间几乎不需要交互。从证明生成到提交和验证的一切都发生在单个交易中。</p>
+</li>
+<li><p>ARK：代表“知识论证”。这部分增加了计算可靠性的质量。简而言之，如果不具备支持其主张的知识（即通过持有他们试图伪造的底层信息），不良行为者很难欺骗基于 zk-SNARK 的系统。这是基于这样的理论：坏人的计算能力有限，这意味着任何拥有无限计算能力的人都可以创建虚假证明。一些 zk-SNARK 协议有办法防止这种攻击。</p>
+</li>
+</ul>
+<p>一些 SNARK 的一个重要属性是它们要求配置过程是可信任的——在这个过程中，隐私交易的证明和生成证明的密钥会被创建。如果在事件期间用于创建这个密钥的秘密没有被销毁，它们可能被用来创建虚假证明。在涉及加密资产的场景中，这将使参与者能够伪造交易或凭空铸造新通证。由于 SNARKs 固有的隐私性，所以无法验证伪造的证明是否确实是伪造的。</p>
+<p>SNARK 的安全级别是通过为找到虚假陈述的证据而必须完成的工作量来衡量的。换句话说，如果 SNARK 在计算上无法产生令人信服的虚假陈述证明，那么它就是安全的。对于需要可信设置才能被认为是安全的 SNARK，仪式中至少有一名参与者必须生成并销毁一个 trapdoor，如果与其他 trapdoor 结合使用的话，否则就有可能危及 SNARK 的安全性。因此，受信任的设置通常需要许多参与者一起运行，以使这种情况发生的可能性足够低。</p>
+<h2 id="什么是-ZK-STARK？"><a href="#什么是-ZK-STARK？" class="headerlink" title="什么是 ZK-STARK？"></a>什么是 ZK-STARK？</h2><p>zk-STARK 全称 Zero-Knowledge Scalable Transparent Argument of Knowledge（零知识可扩展透明知识论证），是一种零知识证明系统，在 Eli Ben-Sasson、Iddo Bentov、Yinon Horesh 和 Michael Riabzev 于 2018 年发表的一篇<a target="_blank" rel="noopener" href="https://starkware.co/wp-content/uploads/2022/05/STARK-paper.pdf">论文</a>中作为 SNARK 的替代方案被引入。</p>
+<ul>
+<li><p>ZK：就像“zk-SNARKs”一样，这也意味着“零知识”，这意味着它们在不披露任何底层信息的情况下证明交易或交互，除非它们是正确和真实的。</p>
+</li>
+<li><p>S：这意味着“可扩展”，强调这些零知识证明如何专注于增强区块链的可扩展性。zk-STARK 使开发人员能够执行计算并在链外存储数据，从而以指数方式提高可扩展性。零知识证明验证这些链下活动，然后在线提交以供感兴趣的各方验证。</p>
+</li>
+<li><p>T：代表“透明”，这种品质标志着 zk-STARKs 和 zk-SNARKs 之间最显着的区别之一。他们使用公开可用的随机性来生成参数，从而无需可信设置。</p>
+</li>
+<li><p>ARK： “知识论证”的含义与之前相同，但使用了不同的计算方法。它使用抗冲突的哈希函数，有效地消除了对可信设置的需求。</p>
+</li>
+</ul>
+<p>STARK 支持 StarkWare 的可扩展性技术。通过使开发人员能够在链下进行存储和计算，STARK 提高了可扩展性，因为验证链下计算准确性的 STARK 证明可以由链下服务生成，然后发布在链上。</p>
+<p>STARK 允许区块链将计算转移到某个链下 STARK 证明者，然后使用链上 STARK 验证者验证这些计算的完整性。 Layer-2 网络可以通过使用 STARKs 在单个批次中计算大量交易，然后使用单个 STARK 证明来确认交易在链上的有效性，从而实现可扩展性。批次中的所有交易均分担链上操作的成本，为第 2 层网络上的每笔交易提供低 gas 成本。</p>
+<h2 id="zk-SNARKs-与-zk-STARKs：相似点和不同点"><a href="#zk-SNARKs-与-zk-STARKs：相似点和不同点" class="headerlink" title="zk-SNARKs 与 zk-STARKs：相似点和不同点"></a>zk-SNARKs 与 zk-STARKs：相似点和不同点</h2><p>这两者有一些相似之处。首先，它们是尖端的非交互式零知识证明协议，证明者和验证者之间几乎不需要交互。证明生成、提交和验证通常在一笔交易内完成。</p>
+<p>此外，它们还增强了区块链的可扩展性。零知识证明比平均比特币交易小得多，并且验证速度更快。快速验证和更少的区块空间意味着以太坊等网络具有更高的可扩展性。</p>
+<h3 id="差异"><a href="#差异" class="headerlink" title="差异"></a>差异</h3><p>zk-SNARKs 和 zk-STARKs 至少在四个主要点上有所不同：</p>
+<p><img src="/images/6-1.png"></p>
+<h3 id="透明度"><a href="#透明度" class="headerlink" title="透明度"></a>透明度</h3><p>在比较 zk-SNARK 与 zk-STARK 时，一个关键区别在于它们的透明度方法。zk-SNARK 需要一个初始可信设置阶段来生成生成零知识证明所需的随机性。这些参数通常由一小群人保管以保护它们。如果参数落入坏人之手，不诚实的行为者可能会利用它们来创建错误的证明。</p>
+<p>zk-STARK 采用不同的方法，利用抗碰撞加密技术来消除私有参数生成仪式的需要。如果没有可信的设置，生成随机性的参数是公开的，限制了中心化并增强了透明度。</p>
+<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><p>zk-SNARKs 与 zk-STARKs 之间的另一个区别是它们的安全方法。零知识 SNARKS 使用初始设置来生成参数，并且根据其设置，计算上是合理的。然而，它们的可靠性是假设证明者的计算能力有限。然而，当证明者使用无限量的计算能力时，他们将能够使用某种算法，该算法可以执行极快的并行整数分解计算，该计算可用于从公钥中提取私钥。换句话说，他们将能够破坏证明系统。因此，理论上它们很容易受到量子计算攻击，因此不具备量子抗性。</p>
+<p>zk-STARK 不需要初始可信设置，而是选择抗碰撞方法。因此，与它们的对应物不同，它们不需要很高的计算成本，从而消除了因量子计算的无限计算能力而受到损害的威胁。因此，它们的量子抗性等级更高。</p>
+<h3 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a>可扩展性</h3><p>zk-STARK 的证明大小比 zk-SNARK 大得多，但是，zk-SNARK 的计算需求使其生成证明的速度比其他选项更慢。它们还比 zk-STARK 消耗更少的 Gas，并且由于字节大小的差异，它们验证证明的速度更快。</p>
+<p>虽然 zk-SNARK 看起来由于证明验证速度更快而更具可扩展性，但 zk-STARK 生成证明的速度更快，扩展速度也更快，即使它们的证明大小更大。此外，由于采用了链下计算和存储，zk-STARK 在上链时消耗的 Gas 更少。然而，在低吞吐量期间（创建的证明很少），验证将需要更长的时间。</p>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>zk-SNARK 建立在椭圆曲线上，在无法找到随机椭圆曲线元素相对于公共基点的离散对数的假设下，可以提高安全性和隐私性。</p>
+<p>另一方面，zk-STARKs 使用精益加密技术（抗冲突哈希函数）来提供可扩展性和安全性。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>ZK-SNARK 的主要特点： </p>
+<ul>
+<li><p>数据可用性高，但可线性扩展。</p>
+</li>
+<li><p>非交互式计算的可能性。</p>
+</li>
+<li><p>zk-SNARK 的安全性取决于 CRS 设置。这里的错误会影响所有电路并允许生成错误证明。</p>
+</li>
+<li><p>ZK-SNARK 因其紧凑的证明大小和一致的验证时间而受到青睐，这使得它们在 ZK-rollups 中进行 L1 验证具有成本效益。</p>
+</li>
+</ul>
+<p>ZK-STARK 的主要特点： </p>
+<ul>
+<li><p>无需初始可信设置。</p>
+</li>
+<li><p>非常畅销。特别是在处理大量数据时，它们的证明和验证时间比 zk-SNARK 慢。</p>
+</li>
+<li><p>证明尺寸越大，验证成本越高。</p>
+</li>
+<li><p>ZK-STARK 能够抵御量子计算威胁。</p>
+</li>
+</ul>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E%E7%AE%80%E4%BB%8B"><span class="toc-text">零知识证明简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E4%BD%9C%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="toc-text">它是如何运作的呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZK-%E8%AF%81%E6%98%8E%E5%AF%B9%E4%BA%8E%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%B7%A8%E5%A4%A7%E4%BB%B7%E5%80%BC"><span class="toc-text">ZK 证明对于区块链的巨大价值</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZK-SNARK-%E4%B8%8E-ZK-STARK"><span class="toc-text">ZK-SNARK 与 ZK-STARK</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-zk-SNARK%EF%BC%9F"><span class="toc-text">什么是 zk-SNARK？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-ZK-STARK%EF%BC%9F"><span class="toc-text">什么是 ZK-STARK？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zk-SNARKs-%E4%B8%8E-zk-STARKs%EF%BC%9A%E7%9B%B8%E4%BC%BC%E7%82%B9%E5%92%8C%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="toc-text">zk-SNARKs 与 zk-STARKs：相似点和不同点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%AE%E5%BC%82"><span class="toc-text">差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%8F%E6%98%8E%E5%BA%A6"><span class="toc-text">透明度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8"><span class="toc-text">安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-text">可扩展性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/StarkNet/">StarkNet</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2022/10/03/20221005%E9%9A%8F%E7%AC%94/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">20221003随笔</span>
+            </a>
+        
+        
+            <a class="next" href="/2022/05/30/Argentx%E9%92%B1%E5%8C%85%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                
+                <span class="prev-text">Argentx钱包的介绍和使用</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

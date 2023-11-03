@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>以太坊L2扩展方案对比 | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        以太坊L2扩展方案对比
+    </div>
+    <p class="sub">1月 05 2022</p>
+    <div class="post-content">
+        <h2 id="为什么需要L2？"><a href="#为什么需要L2？" class="headerlink" title="为什么需要L2？"></a>为什么需要L2？</h2><p>这得聊到区块链不可能三角，也就是当前区块链的技术限制，在去中心化，可拓展性，和安全性中只能得其二<br><img src="/images/1-1.png"></p>
+<h3 id="（一）选择去中心化与安全性"><a href="#（一）选择去中心化与安全性" class="headerlink" title="（一）选择去中心化与安全性"></a>（一）选择去中心化与安全性</h3><p>比特币作为案例。比特币通过加密算法和完全分布式的验证机制实现了安全性和去中心化。但是缺陷也很明显，因为要分布式的验证，比特币每秒只能处理7笔交易，比起传统中心化机构的百万级处理速度，比特币的可拓展性相当受限。</p>
+<h3 id="（二）选择可拓展性与安全性"><a href="#（二）选择可拓展性与安全性" class="headerlink" title="（二）选择可拓展性与安全性"></a>（二）选择可拓展性与安全性</h3><p>EOS作为案例。为了解决比特币拓展性的问题，柚子在验证节点的模式上选择了设置21个超级节点，比起比特币的完全分布式验证方式，其处理交易的速度大大提升。但是缺陷就是牺牲了去中心化程度。</p>
+<h3 id="（三）选择去中心化与可拓展性"><a href="#（三）选择去中心化与可拓展性" class="headerlink" title="（三）选择去中心化与可拓展性"></a>（三）选择去中心化与可拓展性</h3><p>几乎没有公链选择这样的道路，因为安全性是一切交易和价值的前提。</p>
+<p>以太坊被诟病的高gas fee&#x2F;低TPS&#x2F;低扩展性，以及POW的不环保，都将在未来以太坊2.0到来时被改进，然而在2.0彻底到来之前以及之后，Layer2解决方案都可以为以太坊的扩展性提供很多价值。</p>
+<h2 id="L2方案对比"><a href="#L2方案对比" class="headerlink" title="L2方案对比"></a>L2方案对比</h2><p>目前四种L2解决方案：状态通道&#x2F;Plasma&#x2F;Zk-Rollup&#x2F;Op-Rollup</p>
+<h3 id="状态通道："><a href="#状态通道：" class="headerlink" title="状态通道："></a>状态通道：</h3><p>通过允许在链外（L2）进行X次交易并向网络提交两个交易到链上（L1）来减少第一层的负载和交易成本。这可以通过以下的2个链外交易工作流程实现：</p>
+<p>第一个交易打开连接。参与者必须将以太坊的一部分状态锁定在一个多签名合约中。</p>
+<p>第二笔交易关闭连接。当交易完成后，提交最后一个链上交易并解锁状态。</p>
+<p>通道工作流程可以处理支付（支付通道）或一般状态更新和计算（状态通道）。</p>
+<p>通道是在主网上建立即时提款&#x2F;结算的一个伟大的解决方案。此外，它带来了高吞吐量和极低的成本。另一方面，建立和结算通道的时间和成本可能很高，如果成员没有达到有效的退出状态，预计退出时间会很长。</p>
+<p>应用项目：Celer Network</p>
+<h3 id="（二）Plasma："><a href="#（二）Plasma：" class="headerlink" title="（二）Plasma："></a>（二）Plasma：</h3><p>运算+数据均搬移线下。通过一中心运营商统一汇总所有的交易数据，以一定时期的运算周期为单位，将所有的交易数据提交到eth主链上，并为收款方提供一个账单，收款方可以在当期运算周期结束后随时去运营商处提取款项。缺点是在运营商的运算周期结束前是不可以提现的，使用过polygon的用户都应该有相应体验。</p>
+<h3 id="（三）Rollup技术："><a href="#（三）Rollup技术：" class="headerlink" title="（三）Rollup技术："></a>（三）Rollup技术：</h3><p>“Rollups”是在以太坊主网（第二层）之外执行交易的解决方案，交易完成之后，将交易数据送回主网（第一层）。换句话说，Rollups试图从区块链本身卸载交易量，并在一个单独的链上执行交易。<br><img src="/images/1-2.png"></p>
+<p>基于Rollup的第2层解决方案有很多好处：</p>
+<p><strong>更高的tps和更低的交易费用：</strong>目前以太坊区块链每秒可以处理15–45笔交易。第2层的扩展解决方案将这个数字提升到1000–4000tps。最后，随着ETH 2.0的推出，以太坊区块链有望每秒处理约10万笔交易。更多的tps也意味着更少的网络拥堵。这可能会减少网络上的交易费用。</p>
+<p>更快的交易确认：rollups背后的主要想法是将交易量从主区块链中卸载，并在另一层中处理它们。Rollups在第1层部署智能合约，它们负责存款、提款和验证交易。交易确认也可以在批量模式下进行。</p>
+<p>更加安全：rollups依赖于以太坊区块链的安全性。因此，他们被认为是更安全的。</p>
+<p>现在让我们更详细地讨论不同类型的卷积解决方案。</p>
+<h4 id="Optimistic-Rollup"><a href="#Optimistic-Rollup" class="headerlink" title="Optimistic Rollup"></a>Optimistic Rollup</h4><p>Optimistic Rollup使用欺诈证明（fraud proof）。欺诈证明的主要思想是向第1层发送最小数据，并假设（乐观地认为）它是正确的。在交易有效的情况下，区块链不需要做任何事情。如果它是无效的，它必须识别它，回滚状态，并惩罚发件人。<br><img src="/images/1-3.png"><br>为了实现这一点，方案使用了一个 “争议解决系统”。它检测欺诈活动，核实欺诈证明，并抑制不良行为者。为了防止不良行为者向网络发送垃圾交易，发送者还必须提供保证金（通常以ETH的形式）。如果在第一层检测到欺诈活动，这个保证金将被削减作为惩罚。</p>
+<p>在Optimistic Rollups中，预计会有很长的提款期（甚至几周）。这主要是因为所有的网络参与者都必须在第1层最终完成交易之前发送证明。另一方面，Optimistic Rollups在开发者之间很受欢迎，主要是因为该技术使用所有现有的以太坊技术栈，几乎没有修改。</p>
+<h4 id="ZK-Rollup"><a href="#ZK-Rollup" class="headerlink" title="ZK Rollup"></a>ZK Rollup</h4><p><img src="/images/1-4.png"><br>ZK Rollup使用有效性证明validity proofs。不会存在争议解决方面的问题。相反，它使用一个叫做 “零知识zero-knowledge”的密码学概念。每一个发布到第1层的批次都包括一个叫做 “zk-snark”的加密证明。当交易批次提交时，该证明可以被第1层合约快速验证，无效的交易可以被立即拒绝。不存在提款周期长的问题。然而，由于EVM的兼容性，实施的复杂性要高得多。它们的计算量也比较大。</p>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81L2%EF%BC%9F"><span class="toc-text">为什么需要L2？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E9%80%89%E6%8B%A9%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E4%B8%8E%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-text">（一）选择去中心化与安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E9%80%89%E6%8B%A9%E5%8F%AF%E6%8B%93%E5%B1%95%E6%80%A7%E4%B8%8E%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-text">（二）选择可拓展性与安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%80%89%E6%8B%A9%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E4%B8%8E%E5%8F%AF%E6%8B%93%E5%B1%95%E6%80%A7"><span class="toc-text">（三）选择去中心化与可拓展性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#L2%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94"><span class="toc-text">L2方案对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E9%80%9A%E9%81%93%EF%BC%9A"><span class="toc-text">状态通道：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Plasma%EF%BC%9A"><span class="toc-text">（二）Plasma：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89Rollup%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="toc-text">（三）Rollup技术：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Optimistic-Rollup"><span class="toc-text">Optimistic Rollup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZK-Rollup"><span class="toc-text">ZK Rollup</span></a></li></ol></li></ol></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8AL2/">以太坊L2</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2022/02/24/starknet%E4%BB%8B%E7%BB%8D/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">starknet介绍</span>
+            </a>
+        
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

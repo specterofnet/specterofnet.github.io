@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>什么是数据可用性(DA) | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        什么是数据可用性(DA)
+    </div>
+    <p class="sub">5月 12 2023</p>
+    <div class="post-content">
+        <p>免信任是公共区块链的大前提（“不信任，就验证”）。 以太坊减少信任假设的方法之一是强制执行数据可用性相关规则。 区块生产者需要发布每个区块的数据，参与以太坊共识的节点在本地存储这些数据。</p>
+<p>以太坊网络的所有节点执行从对等节点接收的区块中的交易，确保区块生产者提出的变化与节点独立计算的变化完全一致。 这就是节点验证新信息是否有效的方式，而无须信任区块生产者是诚实的。 如果缺少任何数据，这种验证是无法进行的。</p>
+<p>数据可用性非常重要，因为如果我们不能使用可用数据重现变化，从区块链的角度看，该变化是不存在的。 如果能够获取区块数据，验证节点就可以使用它们自己的以太坊世界状态重新执行交易而无需信任，并独立验证每个区块的正确性。</p>
+<h1 id="数据可用性定义"><a href="#数据可用性定义" class="headerlink" title="数据可用性定义"></a>数据可用性定义</h1><p>数据可用性保证区块提议者发布区块的所有交易数据并且交易数据对于其他网络参与者可用。 以太坊交易在<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/blocks/">区块</a>中处理。 这些区块连接在一起形成“区块链”。</p>
+<p>每个区块有两个主要部分：</p>
+<ul>
+<li><p>区块头：包含关于区块的一般信息（元数据），例如时间戳、区块哈希、区块编号等。</p>
+</li>
+<li><p>区块体：包含作为区块的一部分处理的实际交易。</p>
+</li>
+</ul>
+<p>提出新区块时，区块生产者必须发布整个区块，包括交易数据（包含在区块体中）。 然后，参与共识的节点可以下载区块的数据并重新执行交易以确认其有效性。 如果没有验证交易的节点，区块提议者可以在区块中插入恶意交易并逃脱惩罚。</p>
+<p>最新的以太坊分片路线图优先考虑数据分片，而不是执行分片，从而显著提高以太坊数据吞吐量。此外，模块化区块链还深入研究了Rollup、volitions和validity以及数据可用性解决方案。其都是区块链数据可用性的最新讨论和趋势。</p>
+<p>数据可用性是指组织确保其所有与业务相关的数据在一天中的任何时间、无论何时何地都可供组织、合作伙伴或最终用户使用。</p>
+<h1 id="数据可用性的重要性"><a href="#数据可用性的重要性" class="headerlink" title="数据可用性的重要性"></a>数据可用性的重要性</h1><p>对于 Optimistic Rollup，我们依靠称为欺诈证明的东西来保持定序器是诚实的（我们假设定序器正在运行，除非有人提交表明定序器包含无效&#x2F;恶意交易的欺诈证明）。但如果我们希望其他人能够计算欺诈证明，他们将需要定序器执行的交易中的tx数据才能提交欺诈证明。换句话说，定序器必须使tx数据可用，否则的话，没有人能够保证 optimistic rollup的定序器是诚实的！</p>
+<p><img src="/images/12-1.png"></p>
+<p>而在ZK Rollup的情况下，要保持定序器诚实就简单多了：定序器在执行一批tx时，必须提交有效性证明（ZK-SNARK&#x2F;STACK），而这种有效性证明可保证没有任何tx是无效的&#x2F;恶意的。此外，任何人（甚至是智能合约）都可以轻松验证提交的证明。但对于ZK Rollup的定序器来说，让数据可用仍然是非常重要的。这是因为，作为上述rollup的用户，如果我们想使用垃圾币，我们需要知道Rollup上的账户余额是多少。如果交易数据不可用，我们将无法知道我们的帐户余额如何，并且将无法再与rollup 进行交互。</p>
+<p>简而言之，如果rollup所使用的数据可用性解决方案&#x2F;层，无法跟上rollup的定序器希望转储到其上的数据量，那么定序器（以及rollup）即使愿意，也无法处理更多的tx，这会导致我们今天在以太坊上看到的gas费用飙升的情况。</p>
+<p>这正是数据可用性极其重要的原因：保证数据可用性使我们能够确保rollup定序器的行为，如果rollup要最大化其tx吞吐量，则最大化数据可用性解决方案&#x2F;层的数据空间吞吐量是至关重要的。</p>
+<h1 id="StarkWare实现方式？"><a href="#StarkWare实现方式？" class="headerlink" title="StarkWare实现方式？"></a>StarkWare实现方式？</h1><p>用户在 L2（StarkEx 和 StarkNet）上发送交易，这些交易被分批发送给 STARK 证明器。该 STARK 证明器知道这些交易处理前后的账本状态。证明器生成一个 STARK 证明，证实在这些交易执行后账本新状态的有效性。新状态和 STARK 证明将发送至链上 STARK 验证器。该证明通过以太坊上的不可篡改的智能合约自动验证。</p>
+<p>这种架构提供了两全其美的优势，既可以拥有低交易成本，同时还让以太坊作为中立仲裁方。以太坊作为仲裁方不仅是锦上添花，还为终端用户提供了至关重要的安全性。用户可以确信自己的资金受到以太坊的保护，并且交易一旦在以太坊上得到验证就不可更改。用户还可以完全自行保管其资金。自托管非常重要，因为这确保了用户无需依赖任何第三方，可以随时使用资金。</p>
+<h1 id="数据可用性的三种模式"><a href="#数据可用性的三种模式" class="headerlink" title="数据可用性的三种模式"></a>数据可用性的三种模式</h1><h2 id="Rollup-模式"><a href="#Rollup-模式" class="headerlink" title="Rollup 模式"></a>Rollup 模式</h2><p>Rollup 模式确保账本的状态与证明一起存储在以太坊上。目前 dYdX 和 L2 公共网络 StarkNet 都是使用 Rollup 模式。好处显而易见，可以仅通过与以太坊交互来重新创建账本状态。这意味着，作为终端用户，可以无需信任地与以太坊上的相关智能合约进行交互，即使 L2 系统关闭也可以提取资金。</p>
+<h2 id="Validium-模式"><a href="#Validium-模式" class="headerlink" title="Validium 模式"></a>Validium 模式</h2><p>在 Rollup 模式下，大部分以太坊 gas 成本用于数据可用性上，而不是验证证明。因为在区块链上存储数据非常耗费 gas。在 Validium 模式下，账本信息不会发送到以太坊，而是由数据可用性委员会 (Data Availability Committee, DAC) 存储在链下，以太坊仅存储此账本信息的哈希值。该 DAC 由法定人数的独立成员组成，负责监督状态正确更新，并保留已处理数据的副本。每个 StarkEx 实例都可以创立自己的委员会。负责 StarkEx 上运行的现有应用程序数据可用的委员会成员包括 Consensys、Nethermind、Iqlusion 和 Cephalopod 等实体。</p>
+<h2 id="Volition-模式"><a href="#Volition-模式" class="headerlink" title="Volition 模式"></a>Volition 模式</h2><p>Volition 是一种数据可用性架构，可供在交易层级从 Validium 和 Rollup 模式之间选择。它通过将一个账本保存在链上，另一个账本保存在 DAC 中来实现这点。用户可以在每个单笔交易中选择用 Validium 或 Rollup 模式进行保存。</p>
+<p>想象一下，你在 StarkEx 上运行的应用程序上购买了非常昂贵的 NFT，比如 BAYC 或 CryptoPunk，你就会想用 Rollup 模式来保护该 NFT 的数据，因为需要在以太坊上存储该特定交易的记录。然而，你也可能会购买一些非常便宜的 NFT，比如链游里的小道具，在这种情况下，使用 Validium 来节省成本就是很明智的选择。</p>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E7%94%A8%E6%80%A7%E5%AE%9A%E4%B9%89"><span class="toc-text">数据可用性定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-text">数据可用性的重要性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#StarkWare%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="toc-text">StarkWare实现方式？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F"><span class="toc-text">数据可用性的三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Rollup-%E6%A8%A1%E5%BC%8F"><span class="toc-text">Rollup 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Validium-%E6%A8%A1%E5%BC%8F"><span class="toc-text">Validium 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Volition-%E6%A8%A1%E5%BC%8F"><span class="toc-text">Volition 模式</span></a></li></ol></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8AL2/">以太坊L2</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2023/10/07/StarkNet%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">StarkNet安全性分析</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/04/28/StarkNet2023%E8%B7%AF%E7%BA%BF%E5%9B%BE/">
+                
+                <span class="prev-text">StarkNet2023路线图</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

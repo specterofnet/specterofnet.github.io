@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>带你理清StarkWare/StarkEx/StarkNet/STARKs | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        带你理清StarkWare/StarkEx/StarkNet/STARKs
+    </div>
+    <p class="sub">10月 15 2022</p>
+    <div class="post-content">
+        <p><strong>首先一句话总结就是一家名为StarkWare 的公司为以太坊扩容提供了StarkNet和StarkEx的两种方案</strong></p>
+<h1 id="StarkWare"><a href="#StarkWare" class="headerlink" title="StarkWare "></a>StarkWare </h1><p>StarkWare 是 zk rollups 赛道内最好的公司之一，由以色列理工学院的 Eli Ben-Sasson 教授（zk SNARK &amp; zk STARK 的联合发明者）联合创立，它为区块链行业提供基于 STARK 技术的解决方案。目前开发了两款产品：StarkEx &amp; StarkNet。StarkWare 致力于在包括技术、数学、创新与产品交付的双重关注；支持其他推动以太坊和&#x2F;或 STARK 的团队；以及努力使产品开源、去中心化并专注于将 STARK 作为公共产品。</p>
+<h1 id="STARKs"><a href="#STARKs" class="headerlink" title="STARKs"></a>STARKs</h1><p>在 STARK 方案中，只需要生成一份证明，计算结果就可以在简单几步内得到验证。 有了 STARKs，较大的计算可以在链下进行，减少了区块链上验证所需的计算量。只需几步链上操作，验证者就可以验证大规模的链下计算。</p>
+<p>STARKs 解决方案可以用单一 STARK 证明进行组合、计算以及验证成千上万的区块链交易，处理成本将分摊到一批交易的所有交易中，保证了 Ethereum 的安全性，降低了 Gas 费用。</p>
+<p>低计算成本的好处在于，它将方便新类型的应用在链上完成搭建，改善了用户体验，降低了 Gas 成本，并确保了 Ethereum 的安全性。</p>
+<h1 id="StarkEx"><a href="#StarkEx" class="headerlink" title="StarkEx"></a>StarkEx</h1><p>一种基于以太坊区块链的应用特定的 Layer-2 扩展引擎，旨在解决以太坊等 Layer-1 区块链网络的可扩展性问题。StarkEx 通过使用一种名为 STARK 证明的先进密码学系统，实现了快速、低成本的交易，同时不妥协安全性、隐私性和自我保管。</p>
+<p>它提供了一系列用于实现便宜的链下计算的应用流程，将多笔交易打包在一个 STARK 证明中，然后在链上进行验证，降低了每笔交易的平均燃料成本。StarkEx 扩展引擎的工作原理，包括批处理、验证和更新、生成证明以及链上验证四个步骤。</p>
+<p>StarkEx 已经成功部署在多个应用中，如 dYdX、Immutable、Sorare、DeversiFi 和 Celer。和 StarkNet 的区别在于：</p>
+<p>StarkEx 和 StarkNet 是由 StarkWare 开发的两个不同的技术，它们都使用 STARK 零知识证明技术，但有不同的目标和用途。</p>
+<p>1. StarkEx：StarkEx 是一个针对特定应用的 Layer-2 扩展引擎，主要关注优化以太坊区块链上的单一应用程序的性能。它通过将多个交易批量处理并在链下进行验证，实现了更快速、低成本的交易。主要用于去中心化交易所（DEX）、NFT 市场和游戏等。</p>
+<p>2. 通过使用 STARK 证明技术，StarkEx 提供了安全、高效和低成本的交易体验。StarkNet 是一个无需许可的更为通用、完整的 Layer-2 解决方案，它为整个以太坊生态系统提供了一个去中心化的计算平台，开发者可以在其中部署用 Cairo 语言编写的智能合约。</p>
+<p>StarkNet 支持与其他合约进行交互，允许丰富的协议组合，并可通过异步消息传递与以太坊合约进行交互。目标是提供一个可扩展、低成本且安全的环境，以便开发者在其上构建和部署智能合约。与 StarkEx 不同，StarkNet 可以看作是一个全面的 Layer-2 操作系统，允许开发者创建各种去中心化应用程序，而不仅仅是针对特定用途的解决方案。</p>
+<p>总之，StarkEx 是一个应用特定的 Layer-2 扩展引擎，主要关注特定应用程序的性能优化，而 StarkNet 是一个更为通用、全面的 Layer-2 解决方案，旨在为整个以太坊生态系统提供一个去中心化的计算平台。</p>
+<h1 id="StarkNet"><a href="#StarkNet" class="headerlink" title="StarkNet"></a>StarkNet</h1><p>Starknet 是一个无需许可的去中心化有效性折叠网络（也称为「ZK-Rollup」）。它作为以太坊上的 L2 网络运行，使任何 dApp 都能在不影响以太坊可组合性和安全性的前提下实现无限扩展计算，这要归功于 Starknet 依赖于最安全且最具可扩展性的加密证明系统 STARK。</p>
+<p>Starknet 合约和 Starknet 操作系统使用 Cairo 编写 - 支持部署和扩展任何用例，无论业务逻辑如何。Starknet 作为一种去中心化的二层网络解决方案，旨在为去中心化应用（dApp）提供更高的扩展性和性能。通过在以太坊上运行，它可以利用现有的基础设施和安全性，同时提供更高的计算能力。</p>
+<p>Cairo 是一种专为 Starknet 设计的编程语言，它旨在简化智能合约的开发和部署。通过使用 Cairo，开发人员可以轻松地为各种用例构建高度可扩展的应用程序，包括金融、游戏、供应链等。</p>
+<p>Starknet 是一个 validity rollup，这意味着每个块内的执行都需要被证明，这就是 STARKs 派上用场的地方然而，STARK 证明可以解决以多项式约束语言制定的陈述，并且不了解智能合约的执行。为了克服这个差距，所以开发了 Cairo。</p>
+<p>总的来说，Starknet 是一个充满潜力的二层网络解决方案，它可以使现有的 dApp 在扩展性和性能方面迈出重要一步。通过采用 STARK 加密证明系统和 Cairo 编程语言，Starknet 为开发者提供了一个强大且灵活的平台，以满足各种业务需求。</p>
+<p><strong>StarkEx 和 StarkNet 都是基于 STARK 的扩容解决方案，每一个都兼备了可扩展性、低成本和安全性，只是操作参数有所不同。对于 StarkEx 来说，一个独立且兼容 StarkEx 的 API 的应用程序可能是最合适的选择。</strong></p>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#StarkWare"><span class="toc-text">StarkWare </span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STARKs"><span class="toc-text">STARKs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#StarkEx"><span class="toc-text">StarkEx</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#StarkNet"><span class="toc-text">StarkNet</span></a></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/StarkNet/">StarkNet</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2023/01/04/%E4%BB%A5%E5%A4%AA%E5%9D%8AL3%E4%BB%8B%E7%BB%8D/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">以太坊L3介绍</span>
+            </a>
+        
+        
+            <a class="next" href="/2022/10/05/Cairo%E7%9F%A5%E8%AF%86%E7%AE%80%E4%BB%8B/">
+                
+                <span class="prev-text">Cairo知识简介</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>比特币二层网络介绍 | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        比特币二层网络介绍
+    </div>
+    <p class="sub">1月 23 2023</p>
+    <div class="post-content">
+        <h1 id="什么是比特币-L2-？"><a href="#什么是比特币-L2-？" class="headerlink" title="什么是比特币 L2 ？"></a>什么是比特币 L2 ？</h1><p>BTC Layer 2 是 BTC 网络之上的一层。其主要目的是解决 BTC 网络交易吞吐量不足、交易费用过高和扩容困难的问题。通俗地说，Layer 1 指的是比特币公链。为了解决 BTC 网络的吞吐量问题并避免高额费用，可以将交易移至 Layer 2 进行处理，处理完成后将结果返回至 Layer 1，从而减轻网络压力比特币网络。其结果是比特币的流动性和可扩展性得到扩大。</p>
+<p>相比于以太坊等生态的繁荣，比特币生态上的项目还很少，目前，整个以太坊生态系统的 TVL 市值达到约 260 亿美元，比特币生态系统的 TVL 约为 1.8 亿美元，但比特币市值近 6000 亿美元，以太坊市值约 2300 亿美元，因此从长远看，比特币生态还有相当大的成长空间。</p>
+<p>其实，BTC 的扩容方案要远早于以太坊扩容提议的出现，早在 2012 年以来，就出现了不同的协议和架构，利用比特币作为结算网络的特性，整个想法是增加主链的功能而不使其面临风险。</p>
+<h1 id="比特币-L2-是如何实现的？"><a href="#比特币-L2-是如何实现的？" class="headerlink" title="比特币 L2 是如何实现的？"></a>比特币 L2 是如何实现的？</h1><p>比特币 L2 首先有一个虚拟机开发层，可以供开发者进行开发；其次则可以有自己的共识机制，但是区块是要写入到比特币网络的。BTC 网络是 UTXO，每个区块可以支持其他文本的写入，所以比特币 L2 的 Validator 们，将 L2 的记账区块写入比特币区块，以此让比特币矿工打包交易。</p>
+<p>如何决定哪个 Validator 写入呢？</p>
+<p>这里面用到了随机数，而这个随机数是通过比特币 hash 值确定的，比特币的 hash 值是不可预测的链上随机数，故 Validator 作弊的可能性降低到了最小。</p>
+<h1 id="BTC-Layer2-生态发展现状"><a href="#BTC-Layer2-生态发展现状" class="headerlink" title="BTC Layer2 生态发展现状"></a>BTC Layer2 生态发展现状</h1><p>目前 BTC Layer2 方案有很多，比较知名的有 Lightning Network、Rootstock、Stacks 等。另外，Liquid、Rollkit、RGB 等一些项目和协议也有一定的使用场景。</p>
+<h2 id="闪电网络"><a href="#闪电网络" class="headerlink" title="闪电网络"></a>闪电网络</h2><p>闪电网络（Lightning Network）是 BTC 二层扩容方案，旨在使比特币交易更快、更便宜。比特币之所以拥堵，是因为其主网 TPS 每秒只能进行 7 笔交易，用户为了让自己提交的交易尽快打包出块，就需要提高支付 Gas 费来获得矿工打包优先权，这就是为什么 BRC-20 协议出来后，比特币链上拥堵、费用高的原因。闪电网络能的核心逻辑是将用户的交易环节放在链下，最终的交易成果放在链上，从而提 高比特币网络的交易效率，用户可以快速高效的完成支付。</p>
+<p>闪电网络的概念最早由 Joseph Poon 和 Thaddeus Dryja 于 2015 年提出，其想法是让两个人在自己控制的多重签名地址中封锁一系列比特币，从而建立一个由协议本身管辖的协作协议。这个新地址的创建是通过比特币网络上的真实交易完成的，被称为「打开支付通道」。两个参与者之间进行的 BTC 交易将不会记录在比特币区块链中，而是由闪电节点存储状态。一旦双方决定关闭支付通道，内部发生的所有交易都会被合并，然后广播到主区块链分类账上，在扣除期间进行的所有交易后登记其钱包的最终余额。</p>
+<p><img src="/images/11-1.png"></p>
+<h2 id="Rootstock"><a href="#Rootstock" class="headerlink" title="Rootstock"></a>Rootstock</h2><p>Rootstock 是比特币网络上一条可以兼容 EVM 的侧链，它是一个智能合约平台，它允许开发者使用以太坊的语言去构建智能合约。Rootstock 的亮点是合并开采，即比特币矿工可以同时开采比特币和 RSK 区块，让开发者获得更好的收益。</p>
+<p>Rootstock 是比特币的侧链，因此它有自己的网络和区块链，与比特币相比，Rootstock 提供了更加丰富的功能。Rootstock 使用 RBTC 作为处理交易和合约手续费，由主网上的 BTC 通过跨链桥 1：1 发行，可以随时转为比特币。开发者们在 RSK 网络中部署智能合约时消耗的费用就是用 RBTC 代币来结算的，RBTC 主要用于支付智能合约的执行费用，与 ETH 用作支付以太坊 gas 费类似，Rootstock 则将其奖励给提供算力运行智能合约的矿工。</p>
+<p>RIF OS 则是建立在 Rootstock 上的一套协议，它作为基础设施，为开发者提供区块链基础设施和服务，RIF 生态系统包含一系列产品，包括 DeFi、存储、域名服务、支付解决方案等。它有自己的原生代币\(RIF，该代币的主要作用是访问 RIF OS 服务时作为支付媒介，例如在网络上建立 dApp 时使用\)RIF 作为底层支付代币，另外可以作为抵押品托管，以铸造 RIF DeFi 生态系统中的各种资产。</p>
+<p><img src="/images/11-2.png"></p>
+<p>可以看出，整个架构关系中，BTC 为第一层做价值存储，Rootstock 智能合约网络为第二层做执行，RIF OS 协议为第三层提供基础设施服务。</p>
+<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><p>Stacks 是比特币的智能合约层，它为比特币带来了智能合约功能，而无需修改比特币本身。Stacks 采用金字塔方法，在底部有基础结算层（比特币），然后在其顶部添加智能合约和可编程性层（Stacks），然后在其上层实现可扩展性和速度（ Hiro 子网）。通过采用这种分层方法，使其能够拥有与以太坊等链相同的功能。</p>
+<p>因此，Stacks 可以看作是比特币 Layer 2，具有一些独特的属性，例如拥有自己的代币，它充当激励机制来维护所有交易的历史分类帐并使用自己的安全预算进行操作。与闪电网络相比，Stacks 为比特币添加了额外的功能，但最终仍停留在比特币上。同时 Stacks 允许利用比特币作为基础结算层来构建去中心化且抗审查的软件，这也是 Stacks 与以太坊上的 Layer2 扩展解决方案的区别。Stacks 可以保持比特币主网的安全性，快速生产区块，并添加额外的层来提高功能和速度。但如果其他层受到损害，根本不会影响基础层。因此，它并不是一个类似以太坊的 Layer2。</p>
+<p><img src="https://www.bejson.com/static/bejson/js/component/ueditor/themes/default/images/spacer.gif" alt="图示 描述已自动生成"></p>
+<p>STX 是 Stacks 链上的代币，主要用作质押奖励、流动性挖矿和投票治理，此外 STX 还用于支付交易的 Gas 费。预计下半年，Stacks 将迎来 Nakamoto 升级，该升级将优化 Clarity 语言，引入子网和 SBTC。这一升级将为下一次 BTC 生态的爆发提供比较完善的基础条件。特别是 SBTC 的引入，将解决 Stacks 上原生资产的问题，今后主网上的智能合约能够使用 SBTC 开展借贷、兑换和铸造稳定币等各种 DeFi 业务，扩大 BTC 生态应用。</p>
+<p>除了闪电网络、Rootstok 和 Stacks 这些比较知名的 BTC Layer2 项目，还有其他 BTC Layer 2 项目也正在发展。</p>
+<p>Liquid Network：Liquid Network 是基于比特币的侧链网络，旨在解决比特币的流动性问题，加强比特币交易的速度和隐私度，也可以在这条链上发行新的数字资产。与 RSK 一样，Liquid 使用的 L-BTC 也是与主网 BTC1：1 锚定。同时它还支持部署智能合约，目前已经搭建的应用有 DEX Sideswap 和借贷平台 Hodl。</p>
+<p>RGB 协议：RGB 协议是基于比特币网络做资产发行、资产转移和实现智能合约的协议，它具有可扩展性，可以支持开发者在比特币和闪电网络上部署智能合约，维护开发者的数据安全。其愿景就是让比特币网络像以太坊一样基于智能合约的开发，可以在网络上部署代币、发行 NFT 资产、实现 Defi 应用等。RGB 协议主要支持 RGB20（用于发行同质化代币）和 RGB21（用于发行 NFT），目前协议还在开发阶段，需要更多的开发者和项目加入，共同完善生态。</p>
+<p>Rollkit：Rollkit 是由 Celestia 开发的用于比特币 Rolup 的模块化框架，将比特币渲染成一个模块化的框架，分离了比特币的共识、数据可用性与执行过程。Rollkit 允许开发人员部署 sovereign rollups，将比特币作为数据可用性层，为 Rollup 交易提供相当于比特币主网的安全性。</p>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AF%94%E7%89%B9%E5%B8%81-L2-%EF%BC%9F"><span class="toc-text">什么是比特币 L2 ？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81-L2-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="toc-text">比特币 L2 是如何实现的？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BTC-Layer2-%E7%94%9F%E6%80%81%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6"><span class="toc-text">BTC Layer2 生态发展现状</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AA%E7%94%B5%E7%BD%91%E7%BB%9C"><span class="toc-text">闪电网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rootstock"><span class="toc-text">Rootstock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stacks"><span class="toc-text">Stacks</span></a></li></ol></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/Bitcoin-Layer2/">Bitcoin Layer2</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2023/02/07/20230207%E9%9A%8F%E7%AC%94/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">20230207随笔</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/01/12/20230112%E9%9A%8F%E7%AC%94/">
+                
+                <span class="prev-text">20230112随笔</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

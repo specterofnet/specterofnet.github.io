@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>StarkNet2023路线图 | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        StarkNet2023路线图
+    </div>
+    <p class="sub">4月 28 2023</p>
+    <div class="post-content">
+        <p>原文：<a target="_blank" rel="noopener" href="https://starkware.co/resource/starknet-goals-and-roadmap-for-2023/">https://starkware.co/resource/starknet-goals-and-roadmap-for-2023/</a></p>
+<h1 id="Starknet之旅"><a href="#Starknet之旅" class="headerlink" title="Starknet之旅"></a>Starknet之旅</h1><p>Starknet旨在允许开发者利用STARKs和Cairo的力量来构建他们的应用程序。到目前为止，Starknet的开发重点是为开发者提供面向未来的功能。在Cairo 1.0的支持下，除了Regenesis之外，Starknet的功能现在已经基本完成了。</p>
+<h1 id="再生（Regenesis）"><a href="#再生（Regenesis）" class="headerlink" title="再生（Regenesis）"></a>再生（Regenesis）</h1><p>Starknet今年将经历再生。对于网络来说，这将是一个无缝的事件，因为它不会导致停机时间，也不会重置网络状态。</p>
+<p>Fresh Cairo 1.0合约将不需要任何操作。对他们来说，再生不是一件大事。</p>
+<p>Cairo 0合约需要完成向Cairo 1.0的过渡。只有在我们确保大部分社区能够完成这个过渡之后，Cairo 0将被关闭。</p>
+<p>再生将是Starknet路线图上最后一个计划中的突破性变化，我们希望未来的任何突破性变化都能得到治理决策的审查，就像在以太坊所做的那样。</p>
+<p><img src="/images/10-1.png"></p>
+<h1 id="2023年路线图"><a href="#2023年路线图" class="headerlink" title="2023年路线图"></a>2023年路线图</h1><p>Starknet目前的开发重点是性能和用户体验。以下是估计的时间表：</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>我们未来几个月的主要目标是提高网络性能，以支持用户和开发人员数量的预期增长。正如我们所看到的，性能显然是由吞吐量和延迟定义的，但也由交易成本定义。</p>
+<p>我们在这里按优先级列出了重点领域，并且(如果可能的话)说明了它们发布的计划版本。</p>
+<h2 id="吞吐量和延迟"><a href="#吞吐量和延迟" class="headerlink" title="吞吐量和延迟"></a>吞吐量和延迟</h2><p>即将到来的Starknet v0.12.0将包含显著的吞吐量和延迟改进。这是过去六个月对Starknet堆栈进行Rust-ify工作的结果。这个版本将包括过渡到基于Rust的Sequencer(由StarkWare开发)和新的Rust-Cairo VM (cairo-rs，由LambdaClass开发)——两个开源项目。我们预计很快就会有性能基准测试。</p>
+<p>这种转变将显著减少块执行时间，从而提高吞吐量。在没有拥塞的情况下，我们还希望改善交易延迟，因为延迟的主要原因是块执行时间。</p>
+<p>即使在v0.12.0之后，更高的吞吐量和更低的延迟仍将是首要任务，改进它们的工作将成为Starknet开发的支柱。</p>
+<h2 id="交易成本"><a href="#交易成本" class="headerlink" title="交易成本"></a>交易成本</h2><p>在v0.13.0中，Starknet的交易成本将大幅降低。这将通过针对交易成本的主要组成部分来实现：L1(以太坊)数据成本，它占今天交易成本的95%。Volition将允许开发人员使用混合数据可用性(DA)模式构建Starknet应用程序：链上和链下数据。一篇关于Volition的文章即将发布，详细介绍了它的设计和开发者界面。</p>
+<p>以太坊的EIP-4844(分片Blob交易)预计将于2023年第四季度发布。Starknet将尽快适应并从中受益，此外还有Volition的引入。</p>
+<p>由于以太坊的EIP-4844和Starknet的Volition(链下数据可用性)，我们预计数据成本将大幅降低。</p>
+<h2 id="更快的确认"><a href="#更快的确认" class="headerlink" title="更快的确认"></a>更快的确认</h2><p>随着 Starknet v0.14.0 和 v0.15.0 的发布临近，我们仍然致力于为Starknet的用户提供无缝和可预测的网络体验，无论拥塞程度如何。为了实现这一目标，我们正在优先发展两个关键领域：费用市场和区块间隔。</p>
+<h2 id="费用市场"><a href="#费用市场" class="headerlink" title="费用市场"></a>费用市场</h2><p>对于开发人员和用户来说，只要网络不拥挤，计划中的性能改进将是显而易见的。但是，当网络拥塞发生时，将导致每个人的等待时间增加。为了解决这个问题，Starknet将在v0.14.0引入费用市场，以便根据用户为交易支付的意愿，而不仅仅是其排队的位置，有效地分配 Starknet 的有限资源。</p>
+<h2 id="更短的固定块间隔"><a href="#更短的固定块间隔" class="headerlink" title="更短的固定块间隔"></a>更短的固定块间隔</h2><p>在v0.15.0中，Starknet将切换到恒定和更短的块间隔。目前，每个区块都有自己的证明，并且区块间隔是可变的——守恒量就是区块成本。为了达到固定的块成本，网络等待足够的交易积累，这导致了可变的块间隔。为了解决这个问题，我们计划将Starknet块与其证明之间的1：1关系解耦。从v0.15.0开始，证明将证明一个或多个Starknet块的完整性。这将修复块阻塞间隔，并改善Starknet的用户体验。</p>
+<h1 id="权衡与考虑"><a href="#权衡与考虑" class="headerlink" title="权衡与考虑"></a>权衡与考虑</h1><p>在确定这个路线图时，我们考虑了哪些权衡?</p>
+<p>性能是最重要的——这也是我们从生态系统中得到的响亮而明确的反馈。从v0.12.0开始，这将主要通过增加Sequencer的吞吐量来改进。</p>
+<p>在v0.13.0中，我们必须在更低的交易成本和更好的用户体验(更短&#x2F;固定的块间隔，以及在拥塞期间更可预测的网络响应)之间做出选择。我们决定关注更低的交易成本，而不是用户体验，因为我们希望v0.12.0能带来更好的延迟(以秒为数量级)。如上所述，降低交易成本的主要手段将是Volition的引入，以及更多细节的出现——EIP-4844。</p>
+<p>如果延迟在v0.12.0之后没有得到充分改善，我们将考虑偏离此计划。</p>
+<p>在拥塞期间改善网络行为(通过引入费用市场)可能要等到0.14.0版本。尽管在v0.12.0之后很可能发生拥塞，但我们希望吞吐量的显著改进能够降低这种可能性。因此，我们决定优先考虑降低交易成本。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Cairo 1.0的发布标志着Starknet功能开发趋于稳定。2023年的剩余时间将致力于改善Starknet的性能和用户体验。到今年年底，我们预计网络的基础层将在功能、性能和用户体验方面达到健康稳定的状态。我们预计重大变革的步伐将大幅下降，自然会受到所有网络参与者的控制。到2024年，去中心化将成为网络运营和决策的重点。</p>
+<p>我们相信，面向未来的功能和增强的一流性能和用户体验的结合将继续推动开发人员和应用程序涌入Starknet。</p>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Starknet%E4%B9%8B%E6%97%85"><span class="toc-text">Starknet之旅</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%8D%E7%94%9F%EF%BC%88Regenesis%EF%BC%89"><span class="toc-text">再生（Regenesis）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2023%E5%B9%B4%E8%B7%AF%E7%BA%BF%E5%9B%BE"><span class="toc-text">2023年路线图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD"><span class="toc-text">性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E9%87%8F%E5%92%8C%E5%BB%B6%E8%BF%9F"><span class="toc-text">吞吐量和延迟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E6%88%90%E6%9C%AC"><span class="toc-text">交易成本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%BF%AB%E7%9A%84%E7%A1%AE%E8%AE%A4"><span class="toc-text">更快的确认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%B9%E7%94%A8%E5%B8%82%E5%9C%BA"><span class="toc-text">费用市场</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E7%9F%AD%E7%9A%84%E5%9B%BA%E5%AE%9A%E5%9D%97%E9%97%B4%E9%9A%94"><span class="toc-text">更短的固定块间隔</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%83%E8%A1%A1%E4%B8%8E%E8%80%83%E8%99%91"><span class="toc-text">权衡与考虑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/StarkNet/">StarkNet</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2023/05/12/%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%8F%AF%E7%94%A8%E6%80%A7-DA/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">什么是数据可用性(DA)</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/03/15/StarkNet%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/">
+                
+                <span class="prev-text">StarkNet工作原理详解</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

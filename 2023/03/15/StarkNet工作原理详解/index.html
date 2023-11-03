@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>StarkNet工作原理详解 | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        StarkNet工作原理详解
+    </div>
+    <p class="sub">3月 15 2023</p>
+    <div class="post-content">
+        <p>与以太坊相比，Starknet 只需要一个定序器即可在链外执行计算。然后，为了减少数据量，证明者为交易生成 ZK-STARK 证明。最后，验证者在链上验证证明的正确性，最后将多个 L2 交易捆绑成以太坊上的单个交易（称为 Rollup）。因此，Starknet 降低了链上的执行和存储成本，从而带来更低的 Gas 费用和更高的 TPS。</p>
+<h1 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h1><p>让我们看看以太坊是如何工作的。在以太坊中，验证交易的正确性需要所有节点检查、验证和执行每笔交易。此过程确保计算的准确性并在网络上广播结果状态变化。</p>
+<p><img src="/images/5-1.png"></p>
+<p>但Starknet只是在链下执行计算并生成证明，然后在链上验证证明的正确性，最后将多个L2交易捆绑成以太坊上的单个交易。准确地说，ZKR 会将交易写入以太坊 calldata，其中存储对智能合约函数的外部调用中包含的数据（类似于内存）。</p>
+<p>所以Starknet可以大大提高网络运行速度，减少链上通信，增加网络吞吐量，因此与以太坊相比具有更高的TPS和更低的gas。</p>
+<p>简而言之，验证计算的正确性就像老师需要检查班级是否掌握了某个主题。</p>
+<p>以太坊方法是检查每个学生（节点）是否记住了整本教科书（状态历史），而 Starknet 方法是进行纸质测试。后者效率更高、成本更低，但仍然保证安全。</p>
+<p>与大多数 ZKR（例如 Validity Rollup、Scroll、Polygon zkEVM 和 zkSync）一样，Starknet 有一类称为证明者的角色来生成证明。验证者将证明作为 L1（以太坊）上的合约进行验证。</p>
+<p>具体来说，Starknet由五个组件组成：Starknet上的Prover、Sequencer和Full Node，以及Verifier和Starknet Core（它们都部署在以太坊上）。</p>
+<p>下图展示了Starknet的架构</p>
+<p><img src="/images/5-2.png"></p>
+<p>Starknet的工作流程如下：</p>
+<p>当我们在 Starknet 上发起交易时，链下服务器（排序器）会接收、排序、验证并将它们捆绑到区块中。执行交易，然后将状态转换发送到 Starknet Core 合约。</p>
+<p>证明者为每笔交易生成一个证明，并将其发送到部署在以太坊上的验证者合约。</p>
+<p>验证者将验证结果发送到以太坊上的 StarkNet Core 合约，并从 StarkNet Core 合约触发一组新的以太坊交易，以更新链上的全局状态以进行记录保存。状态转换作为“calldata”（EIP-4844 之后的 Blob）发送，以节省 L1 交易 Gas。这些“元数据”可以被Starknet全节点解密。</p>
+<p>完整<a target="_blank" rel="noopener" href="https://github.com/eqlabs/pathfinder">节点</a>存储状态更改、元数据、证明并记录 Rollup 中执行的所有交易。它跟踪系统当前的全局状态。解密“元数据”可以在必要时重建 Starknet 的历史。</p>
+<h1 id="EVM-等效项"><a href="#EVM-等效项" class="headerlink" title="EVM 等效项"></a>EVM 等效项</h1><p>Starknet 网络本身并不等同于 EVM，并且设计了一个 ZK 友好的 Cairo VM。</p>
+<p>Starknet 没有为以太网操作码制作电路，而是制作了自己的一套汇编语言、AIR（代数中间表示）和对 ZK 更友好的高级语言 Cairo。</p>
+<p><img src="/images/5-3.png"></p>
+<p>不与EVM等价的缺点是无法继承以太坊的Solidity代码和工具链，因此不具备以太坊应用生态大规模迁移到Starknet的基础。Cairo语言对于开发者来说有一定的学习门槛，Cairo工具链和库都处于起步阶段。</p>
+<p>然而，设计独立的VM有它的好处。例如，Starknet 的 Cairo VM 对 ZK 更友好，并且更有效地执行电路，从而在未来实现更高的 TPS 和更低的 Gas 使用量（更多详细信息请参见）。此外，放弃 EVM 设计为应用程序创新开辟了许多在以太坊上不可能实现的可能性。</p>
+<p>Starknet 属于Vitalik 定义的4 级EVM 等效项（严格来说，Starknet 是一个 zkVM）。</p>
+<h1 id="STARK-证明系统"><a href="#STARK-证明系统" class="headerlink" title="STARK 证明系统"></a>STARK 证明系统</h1><p>目前，有很多不同的证明系统可用于生成和验证证明，例如 Halo、PLONK、Groth16、Groth09、Marlin 和 Plonky2 等，都属于 SNARK 证明系统。每个证明系统都有一个生成证明的证明者和一个验证证明的验证者。不同的ZK项目几乎使用不同的证明系统。主要的证明系统是SNARK和STARK。Starknet 使用 STARK。</p>
+<p><img src="/images/5-4.png"></p>
+<p>SNARK 代表简洁的非交互式知识论证，而 STARK 代表可扩展的透明知识论证。STARK是SNARK的一种特殊创新类型，其中“S”从Succinct变为Scalable，“T”代表透明，取代了非交互功能。</p>
+<p>STARK比SNARK有更多的创新。它不需要像 SNARKs 那样依赖“可信设置”。它还具有更简单的密码学假设，避免了椭圆曲线、配对和指数知识假设的需要，纯粹依赖于哈希和信息论，因此可以抵抗量子攻击。一般来说，STARK比SNARK更安全。而且 STARK 更具可扩展性。证明生成速度是线性可扩展的，验证时间和证明大小是对数可扩展的。但缺点是生成的证明尺寸较大。随着证明大小的增加，验证成本略有下降，这意味着证明越大，平均成本越低。</p>
+<h2 id="证明时间呈线性变化"><a href="#证明时间呈线性变化" class="headerlink" title="证明时间呈线性变化"></a>证明时间呈线性变化</h2><p>在 80 位安全性下，STARK 每执行 12,288 次哈希调用需要 1 秒，即每秒产生 12,288 次调用；而每 98,304 次哈希调用需要 10 秒，每秒产生 9,830 次调用。因此，我们可以知道证明者所花费的时间与哈希调用的数量几乎呈线性关系，哈希调用越多，平均验证时间越短，平均证明大小越小</p>
+<h2 id="递归证明"><a href="#递归证明" class="headerlink" title="递归证明"></a>递归证明</h2><p>通用且简洁的知识系统证明&#x2F;论证，例如 STARK，可用于增量验证计算。这意味着计算可以生成证明该计算的先前实例的正确性的证明。这个概念被非正式地称为“递归证明组合”或“递归 STARK”。</p>
+<p>换句话说，递归 STARK 证明者将生成一个声明的证明，表明系统的状态可以从 a 转移到 a，a+1因为证明者已经验证了证明 的计算完整性的（递归）证明a，并且忠实地执行了计算状态a，达到新的状态a+1。</p>
+<p>简而言之，您可以理解递归证明将两个证明 a和组合a+1成一个证明。</p>
+<h2 id="Cairo-虚拟机and-Cairo-语言"><a href="#Cairo-虚拟机and-Cairo-语言" class="headerlink" title="Cairo 虚拟机and Cairo 语言"></a>Cairo 虚拟机and Cairo 语言</h2><p>Cairo VM 是 STARK 友好、图灵完备的冯诺依曼 CPU 架构<a target="_blank" rel="noopener" href="https://www.cairo-lang.org/">。</a>它包含一种名为 Cairo 的编程语言，该语言基于 Cairo 汇编和 AIR（代数中间表示），使其编译效率很高。</p>
+<p>我们先来看看开罗VM。Cairo VM 是一个并行状态机，允许事务并发执行，显着提高 TPS。相比之下，EVM 是串行状态机。</p>
+<p>Cairo 是一种智能合约语言，可以部署在 Starknet 上或之外。任何 Cairo 程序都可以生成 STARK 证明。它的语法与 Rust 类似。</p>
+<h2 id="引导加载：从哈希加载程序"><a href="#引导加载：从哈希加载程序" class="headerlink" title="引导加载：从哈希加载程序"></a>引导加载：从哈希加载程序</h2><p>一个程序可以将另一个程序的字节码写入内存，然后将程序计数器设置为指向该内存段，从而开始执行另一个程序。</p>
+<p>个想法的一个具体用途是“从哈希引导加载”：一个称为“引导加载程序”的程序计算并输出另一个程序的字节码的哈希，然后开始如上所述执行它。这样，验证者只需要知道正在执行的程序的哈希值，而不是其完整的字节码。</p>
+<p>这提高了隐私性和可扩展性：</p>
+<ol>
+<li><p>隐私：验证者可以在不知道计算结果的情况下验证程序的执行。</p>
+</li>
+<li><p>可扩展性：假设验证者已知程序哈希，则验证时间并不线性依赖于程序大小，如果将程序（而不是其哈希）作为验证者的输入给出，则会出现这种情况。验证时间和程序大小呈对数关系，如 STARK 部分所述。</p>
+</li>
+</ol>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EVM-%E7%AD%89%E6%95%88%E9%A1%B9"><span class="toc-text">EVM 等效项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STARK-%E8%AF%81%E6%98%8E%E7%B3%BB%E7%BB%9F"><span class="toc-text">STARK 证明系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%81%E6%98%8E%E6%97%B6%E9%97%B4%E5%91%88%E7%BA%BF%E6%80%A7%E5%8F%98%E5%8C%96"><span class="toc-text">证明时间呈线性变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E"><span class="toc-text">递归证明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cairo-%E8%99%9A%E6%8B%9F%E6%9C%BAand-Cairo-%E8%AF%AD%E8%A8%80"><span class="toc-text">Cairo 虚拟机and Cairo 语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%EF%BC%9A%E4%BB%8E%E5%93%88%E5%B8%8C%E5%8A%A0%E8%BD%BD%E7%A8%8B%E5%BA%8F"><span class="toc-text">引导加载：从哈希加载程序</span></a></li></ol></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/StarkNet/">StarkNet</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2023/04/28/StarkNet2023%E8%B7%AF%E7%BA%BF%E5%9B%BE/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">StarkNet2023路线图</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/02/07/20230207%E9%9A%8F%E7%AC%94/">
+                
+                <span class="prev-text">20230207随笔</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

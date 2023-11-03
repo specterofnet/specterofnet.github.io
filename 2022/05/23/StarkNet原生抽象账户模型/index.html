@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>StarkNet原生抽象账户模型 | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        StarkNet原生抽象账户模型
+    </div>
+    <p class="sub">5月 23 2022</p>
+    <div class="post-content">
+        <h1 id="账户是什么？"><a href="#账户是什么？" class="headerlink" title="账户是什么？"></a>账户是什么？</h1><p>以太坊最基础的双账户为：外部账户与合约账户。</p>
+<p><strong>外部帐户</strong>（Externally Owned Account，EOA）作为我们与区块链互动的切入点，我们持有一组公私密钥来控制这个 EOA，而全局对应的地址会记录在链上，同时记录着该组地址的状态（如Balance、Nonce等）。</p>
+<p><strong>合约账户</strong>（Contract Account, CA）简单来说就是存了钱的智能合约，是另外一种储存我们资产的方式。我们能够利用智能合约的合约性和签章的判断使（合约）账户更重要，完成以及人群的特点。</p>
+<h1 id="什么是抽象账户？"><a href="#什么是抽象账户？" class="headerlink" title="什么是抽象账户？"></a>什么是抽象账户？</h1><p>更深入的说，过去节点会负责验证交易、收费手续费、使用ECDSA验证标签，抽象账户把这些东西拉到智能合约中变成合约合约码的一部分，就能够本身进行编程。所以，实现抽象目标有一个目标：「有一个完善的、能正确的验证交易，且将用户交易分配上链的智能合约系统设计」。</p>
+<p>帐户抽象作为解决中心化交易所的安全性和助记词的复杂性，能让钱包达到甚至超出 Web2 用户对使用体验的期待，例如，使用人脸识别或双重验证签署交易。它促进了帐户分类和支付限制；最终实现简易帐户恢复并移除全部助记词。这就是对用户页面和用户体验的革新。</p>
+<h1 id="ERC-4337"><a href="#ERC-4337" class="headerlink" title="ERC-4337"></a>ERC-4337</h1><p>除了 EOA 之外，以太坊还拥有合约，其中包含用户定义的代码。2023 年，以太坊推出了一项协议升级 — ERC-4337，目的是在不引入重大协议变更的情况下，弥合 EOA 和合约之间的结构差距。ERC-4337 的主要理念是引入一个新角色：Bundler。Bundler 的作用是收集用户操作（将它们视为在专门的内存池中收集的元交易），并通过他们自己的 EOA（由 Bundler 控制）将这些用户操作发送到以太坊。通过这种方式，Bundler 允许开发者和用户部署并交互帐户合约，从而获取帐户抽象的优势。</p>
+<p>通过 ERC-4337 将帐户抽象引入以太坊，使开发者能够为合约创建更灵活的行为。然而，以太坊仍然会继续维护 EOA。对于开发者来说，这样做的后果是必须同时服务 EOA 和 ERC-4337。在 EOA 成本更低的生态系统中，可以预见 EOA 将继续占据主导地位，应用程序将无法在整个用户群体中收获帐户抽象的实际价值。</p>
+<h1 id="Starknet-的原生帐户抽象"><a href="#Starknet-的原生帐户抽象" class="headerlink" title="Starknet 的原生帐户抽象"></a>Starknet 的原生帐户抽象</h1><p>相比之下，Starknet 将帐户抽象作为其核心，即所有的帐户都是智能帐户。Starknet 没有 EOA，而是直接跃入每个帐户都是智能帐户的世界。所有的基础设施，包括钱包和区块浏览器，都是为帐户抽象而设计并构建的。这在所有 L1 和 L2 链中都是独一无二的，这使 Starknet 成为第一个智能生态系统：建设者们可以在知道帐户抽象适用于所有帐户的情况下构建自己的应用程序和工具，而无需为非帐户抽象的帐户工作并提供服务。建设者们可以设计他们的应用程序，从帐户抽象所提供的各种机会中受益，因为他们知道智能帐户是用户与应用程序交互的唯一方式。</p>
+<p>Starknet 上的原生帐户抽象消除了因引入 Bundler（如 ERC-4337 所做的那样）所带来的额外复杂性。无需调整基础设施和工具来与 Bundler 进行交互，而是通过指定排序器来履行 Bundler 的角色，从而简化这个流程。</p>
+<p>帐户抽象的三大特点</p>
+<p>帐户抽象主要包括三个组成部分，分别是签名抽象、费用抽象和 Nonce 抽象。每个部分都有其独特的作用，来提升整体用户体验。</p>
+<h2 id="签名抽象"><a href="#签名抽象" class="headerlink" title="签名抽象"></a>签名抽象</h2><p>签名抽象设计交易流程，让定义有效交易的权力掌握在架构师，即帐户设计者手中，无论这个人是开发者还是用户。这样做的主要好处在于可以自定义帐户权限，并使得使用智能手机控制帐户成为可能。</p>
+<h2 id="费用抽象"><a href="#费用抽象" class="headerlink" title="费用抽象"></a>费用抽象</h2><p>费用抽象允许使用不同的代币来支付交易费用，而不局限于网络原生代币。例如，用户可以直接使用 USDC 支付交易费，而无需先将 USDC 兑换成本地代币，从而节省了兑换费用和时间。</p>
+<h2 id="Nonce-抽象"><a href="#Nonce-抽象" class="headerlink" title="Nonce 抽象"></a>Nonce 抽象</h2><p>Nonce 抽象确保了用户的舒适性和便利性。传统的顺序 nonce 解决方案存在一些用户体验缺陷。例如，由于需要强制执行完整排序，就会限制用户同时发送多个独立交易。Nonce 抽象通过允许自定义帐户的重放保护机制来提供所需的灵活性。</p>
+<h1 id="恢复机制"><a href="#恢复机制" class="headerlink" title="恢复机制"></a>恢复机制</h1><p>一个帐户实际上有 2 个公钥：硬件签名器公钥，用于签署所有交易；另一个是从助记词派生的密钥，它只能用于签署「请求删除硬件签名器」这一交易。此请求不会立即执行，而是有 4 天的延迟（可配置），让用户可以使用硬件签名器取消此类请求。这意味着如果设备被盗&#x2F;丢失&#x2F;无法使用，用户仍然可以在四天内恢复帐户。但是，如果助记词被盗，并且攻击者发出删除硬件签名器的请求，用户设备会自动（且重复）收到通知，且能够取消请求并保证资产安全。</p>
+<h1 id="StarkNet钱包项目"><a href="#StarkNet钱包项目" class="headerlink" title="StarkNet钱包项目"></a>StarkNet钱包项目</h1><h2 id="Braavos"><a href="#Braavos" class="headerlink" title="Braavos"></a>Braavos</h2><p>Braavos 团队使用 Starknet 原生智能帐户创建了一款智能钱包，这种钱包能够提供类似 Web 2 的体验，让您可以使用手机的生物识别功能来访问你的钱包。这是一件令人兴奋的事情！大多数区块链所使用的加密技术与移动设备使用的加密技术存在差异，这通常会导致极高的签名验证成本。而未来，在保持高级别的安全性前提下，使用手机签署交易也许会成为可能。</p>
+<p><img src="/images/3-1.png"></p>
+<h2 id="Argent"><a href="#Argent" class="headerlink" title="Argent"></a>Argent</h2><p>通过使用签名抽象，ArgentX 的监护服务 Argent-Shield 带来了另一项创新。这项服务通过让 Argent 充当监护人，让用户为自己的帐户增加了一层保护。只有通过邮件确认的交易才会被 Argent 批准。这是我们熟悉的另一种双因素身份验证机制，通常应用于许多非区块链应用程序中。</p>
+<p><img src="/images/3-2.png"></p>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">账户是什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8A%BD%E8%B1%A1%E8%B4%A6%E6%88%B7%EF%BC%9F"><span class="toc-text">什么是抽象账户？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ERC-4337"><span class="toc-text">ERC-4337</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Starknet-%E7%9A%84%E5%8E%9F%E7%94%9F%E5%B8%90%E6%88%B7%E6%8A%BD%E8%B1%A1"><span class="toc-text">Starknet 的原生帐户抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%8A%BD%E8%B1%A1"><span class="toc-text">签名抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%B9%E7%94%A8%E6%8A%BD%E8%B1%A1"><span class="toc-text">费用抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nonce-%E6%8A%BD%E8%B1%A1"><span class="toc-text">Nonce 抽象</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E6%9C%BA%E5%88%B6"><span class="toc-text">恢复机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#StarkNet%E9%92%B1%E5%8C%85%E9%A1%B9%E7%9B%AE"><span class="toc-text">StarkNet钱包项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Braavos"><span class="toc-text">Braavos</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Argent"><span class="toc-text">Argent</span></a></li></ol></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/StarkNet/">StarkNet</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2022/05/30/Argentx%E9%92%B1%E5%8C%85%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">Argentx钱包的介绍和使用</span>
+            </a>
+        
+        
+            <a class="next" href="/2022/03/05/Rullups%E6%8A%80%E6%9C%AF%E8%AF%A6%E8%A7%A3/">
+                
+                <span class="prev-text">Rullups技术详解</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

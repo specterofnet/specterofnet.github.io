@@ -1,279 +1,449 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>随笔</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="随笔">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="随笔">
-<meta property="og:locale">
-<meta property="article:author" content="Leilei">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="随笔" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">随笔</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
 </header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/01/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-11-01T14:20:48.486Z" itemprop="datePublished">2023-11-01</time>
-</a>
+            <main class="main">
+                <section class="posts clearfix">
+    <div class="posts-wrapper">
     
-  </div>
-  <div class="article-inner">
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/10/07/StarkNet%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90/">StarkNet安全性分析</a>
+            </div>
+            <p class="sub">10月 07 2023</p>
+            <div class="post-content">
+                
+                    <p><strong>原文：Safe and Sound — A Deep Dive into STARK Security</strong></p>
+<h1 id="STARK-安全性详解"><a href="#STARK-安全性详解" class="headerlink" title="STARK 安全性详解"></a>STARK 安全性详解</h1><p>STARK 证明系统（即可扩展透明知识论证）是计算完整性的强大工具：它允许以无信任的方式验证在公共数据上执行的计算的正确性。在本文中，我们将深入探讨 STARK 证明所提供的安全性，对其进行定义，并探索证明方案安全性的技术。<br><br/><br>（详情请阅读 ethSTARK 文档（1.2 版）第 6 节，以及布洛克等人就此主题所做的重要而全面的<a target="_blank" rel="noopener" href="https://eprint.iacr.org/2023/1071.pdf">独立工作</a>）。<br><br/><br>我们试图通过安全分析实现什么？我们希望防止对 STARK 系统的「成功攻击」，这种攻击是由虚假陈述以及 STARK 验证器针对该（虚假）陈述而接受的 STARK 证明引起的。由于虚假陈述很危险，并且它们可能以各种规模和形式出现，所以我们希望能安全地防范所有的虚假陈述。任何虚假陈述，哪怕是微不足道的 1+1&#x3D;3，只要与 STARK 验证器接受的 STARK 证明相结合，就会被视为对系统的成功攻击。（有密码学背景的人可能有兴趣知道，STARK 还能满足更强的安全概念，如 *<a target="_blank" rel="noopener" href="https://eprint.iacr.org/2016/116.pdf">知识可靠性</a>，但为了简单起见，本篇文章将重点讨论关于可靠性的简单案例）。<br><br/><br>我们如何正式定义 STARK 系统的安全性？我们通过分析 「可靠性误差」来确定。「可靠性误差」大致衡量了攻击者为成功发起攻击所需花费的预期「成本」（即为一个虚假陈述找到一个 STARK 证明，但该证明却被 STARK 验证器接受）。从数学上讲，可靠性误差是一个函数 (t)，它的输入是时间参数 t，代表攻击者为发起攻击而愿意花费的计算时间，输出则是攻击者攻击成功的概率（为虚假陈述找到令人信服的证明）。攻击者愿意花费的「成本」 t 越大，他的成功概率也就越高。<br><br/><br>到目前为止，我们已经将 STARK 的安全性定义为一个函数 (t)，这与大家日常在加密推特上讨论安全性的方式不同。在推特上，你可能会听到这样的说法：「该方案有 96 比特的安全性。」这种说法如何转化为我们对安全性的定义呢？这没有统一的答案，因为人们对 「x 比特安全性」的理解略有不同：</p>
+<ul>
+<li><p>严格解释的话，即意味着，对于任何 t 在 1 和 2⁹⁶之间的情况下，可靠性误差为 (t) 2⁹⁶ 。运行时间不超过 2⁹⁶ 的攻击者的成功概率很小，小于 2⁹⁶，即小于十亿分之一乘以十亿分之一。</p>
+</li>
+<li><p>一种更宽松、或许也更常见的解释则是，96 比特的安全性意味着对于任何 t，都存在 t&#x2F;(t) 2⁹⁶ 的情况。这意味着成功概率与运行时间成（反）线性关系。如果攻击者的运行时间为 2⁸⁶，那么其成功概率最多为 2¹⁰。</p>
+</li>
+</ul>
+<p>在本文中，我们将讨论第二种方案。</p>
+<h1 id="从-IOP-到具备-96-比特安全性的-STARK"><a href="#从-IOP-到具备-96-比特安全性的-STARK" class="headerlink" title="从 IOP 到具备 96 比特安全性的 STARK"></a>从 IOP 到具备 96 比特安全性的 STARK</h1><p>那么，我们如何证明一个方案具备了 96 比特的安全性呢？为了回答这个问题，我们需要理解构建 STARK 的高层结构。STARK 由三个主要部分组成：IOP（交互式预言机证明）、默克尔树和 Fiat-Shamir 哈希；我们主要关注的重点部分是 IOP。一旦指定了这些组件部分，我们就可以编译它们来生成一个 STARK。我们将详细介绍这些组件，包括它们是什么以及如何将它们组合在一起。<br><br/><br>首先我们要审查的组件是 IOP：IOP 类似于标准的交互式证明，在其中证明器和验证器进行多轮交互（我们仅限于公共币协议，即验证器只向证明器发送随机挑战）。在 IOP 中，验证器不会完全读取证明器的消息，而是从每个证明器信息中抽样一小部分比特。这就是后来编译的 STARK 能够实现简洁性的原因。<br><br/><br>有了 IOP，如何从中构建 STARK？证明器的信息可能很长（实际上，它们比计算本身还要长）。为了压缩这些信息，我们使用默克尔树。默克尔树是一棵二进制哈希树，其中每个叶节点代表 IOP 中的一个查询或一个回答。树根是整个信息的承诺。当验证器想读取信息中的特定位置时，证明器会提供该位置的值和验证路径。验证器就可以使用该路径来验证该值是否正确。IOP 验证器只从证明器信息中读取少量的位置信息。因此，使用默克尔树可以实现简洁的协议（通信量小的协议）。</p>
+<p><img src="/images/9-1.png"></p>
+<h1 id="压缩轮次"><a href="#压缩轮次" class="headerlink" title="压缩轮次"></a>压缩轮次</h1><p>我们可以选择交互式 STARK，但为了简化生成 STARK 的过程，我们通常会选择非交互式 STARK，这样验证器在构建 STARK 时就无需等待外部信息。事实上，这是目前所有 STARK 系统的部署方式，也是 ethSTARK 协议的构建方式。非交互式 STARK 也是透明 SNARK 的一种特例（透明意味着无需可信设置来实例化它们；「Arthur Merlin 协议」或「公共硬币 IOP」）。为此，最后一个步骤是应用 Fiat-Shamir 算法将多轮交互压缩至单一消息，我们称之为 STARK 证明。Fiat-Shamir 变换是将一个交互式协议转换为非交互式协议的方法。证明器在「与哈希函数对话时」模拟交互式协议。为了得出第 i 轮的随机挑战，证明器哈希至第 i 轮的部分记录，并将输出解释为下一个挑战。<br><br/><br>这就确保了证明器在挑战生成后无法更改自己的回答。然而，作弊的证明器拥有一些在交互式 IOP 中没有的新策略途径。证明器可以通过修改最后一个证明器信息来重新生成验证器挑战，这样就会得到一个新的记录，从而也会得到一个新的挑战。事实证明，IOP 的标准可靠性概念不足以证明 Fiat-Shamir 转换的安全性。<br><br/><br>例如具有 96 轮的 IOP，并向验证器添加以下 hack：如果验证器的随机性的第一比特在 96 轮中每一轮都是 0，那么验证器就会接受（无需查看任何证明）。我们可以看到，向验证器添加这个 hack 只会在 IOP 的可靠性误差中添加一个 2⁹⁶ 的项。然而，经过 Fiat-Shamir 变换后，攻击者可以轻松修改证明器信息，确保每个哈希值都以 0 开头，从而在很短的时间内攻破系统。请放心，这种可怕的情况只是一个理论上的例子，并不适用于已部署的 STARK。那么，让我们来看看为什么我们的 STARK 终究是安全的呢。简而言之，我们将证明，攻击者最多运行 t 步，攻击成功的概率最多为 (t) t 2⁹⁶。详情如下。</p>
+<h1 id="IOP-和逐轮可靠性"><a href="#IOP-和逐轮可靠性" class="headerlink" title="IOP 和逐轮可靠性"></a>IOP 和逐轮可靠性</h1><p>STARK 的安全性取决于其底层 IOP。但是，一个 IOP 具有 96 比特的安全性意味着什么呢？按照标准定义，IOP 的可靠性误差为 2⁹⁶：这意味着任何攻击者（无论运行时间长短）欺骗验证器的概率最多为 2-96。然而，正如我们所讨论的，IOP 的可靠性只是三个部分中的一个，这并不足以让从所有三个步骤编译出来的 STARK 获得 96 比特的安全性。相反，假设 STARK 有 96 比特逐轮可靠性误差（有时也使用一个被称为状态恢复可靠性的类似定义），则编译后的 STARK 的安全性就得到了证明。<br><br/><br>直观地讲，「逐轮可靠性」（round-by-round soundness）表明每一轮都有 96 比特的安全性，而不仅仅是整个协议。说得详细一点，即逐轮可靠性指的是存在一个谓词，它能获取协议的部分记录，并告诉我们这个记录是否是「欺骗性的」：「空记录」不是「欺骗性」，而当且仅当验证器接受时，完整的记录是「欺骗性」。最后，对于任何不是「欺骗」验证器的部分记录，在下一轮中记录变成「欺骗性」 的概率至多为 2⁹⁶。如果存在具有这些属性的判定，我们会说协议具备 96 比特的逐轮可靠性（这个谓词不要求可以有效计算）。<br><br/><br>在许多情况下，人们只分析 IOP 的可靠性，而不分析其逐轮可靠性。诚然，我们很难想到 IOP 具有标准可靠性而不具有逐轮可靠性的例子（人为制造的例子除外）。然而，当推导具体安全界限时，两者之间的差异可能会出现，每个比特都很重要。因此，要推导出严密而具体的界限，就必须对 IOP 的逐轮可靠性进行严密分析。这正是我们对 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=c3EHV3iJQSE">FRI 协议</a>和作为 STARK IOP 基础的 ethSTARK IOP 所做的工作。分析本身远非小事，并超出了本文讨论的范畴。使用新的分析，我们可以为我们的证明设置精确的参数。<br><br/><br>逐轮可靠性确实为我们提供了所需的保障。证明器可以多次重新生成挑战，但我们知道，在任何一轮中，生成「欺骗性的记录概率都是 2⁹⁶。因此，如果证明器有 t 次时间（以哈希调用次数来衡量），那么它最多可以尝试 t 次来获得欺骗性记录，这就将其成功概率限制在 (t) t 2⁹⁶。</p>
+<h1 id="添加所有错误项"><a href="#添加所有错误项" class="headerlink" title="添加所有错误项"></a>添加所有错误项</h1><p>最后，要使所有这一切成立，我们需要确保证明器无法篡改默克尔树。我们可以表明，只要证明器在哈希函数中没有发现碰撞，他就无法在默克尔树中作弊。攻击者使用 t 次调用（随机哈希函数）找到碰撞的概率最多为 t2&#x2F;2，这就是哈希函数的输出长度（由「生日悖论「造成）。这就是为什么我们需要设置哈希函数的长度为所需安全性的两倍。如此一来，如果我们有一个输出长度为 192 的哈希函数和一个逐轮可靠性为 96 比特的 IOP，我们就会得到一个编译后的 STARK，其可靠性误差 (t)&#x3D;t2-⁹⁶ + t2 2¹⁹⁶。由于 t&#x2F;(t) &#x3D; t&#x2F;(t 2⁹⁶+t2 2¹⁹⁶) 1&#x2F;(2⁹⁶+1&#x2F;2⁹⁶) &#x3D; 2²⁹⁵，因此这种方案拥有 95 比特的安全性。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>综上所述，STARK 提供了一种功能强大的方法，用于以无信任的方式验证在公共数据上执行的计算的正确性。STARK 的安全性通常用「可靠性误差」来衡量，它代表了攻击者成功提供了一个虚假陈述并用证明说服验证器的概率。为了达到所需的安全级别，例如 96 比特，底层的 IOP 必须满足逐轮可靠性，确保每一轮都能保持高安全级别。我们分析了我们的 STARK 所基于的 IOP 的逐轮可靠性，从而得出了具体的安全界限。</p>
+
+                
+            </div>
+        </article>
     
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/05/12/%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%8F%AF%E7%94%A8%E6%80%A7-DA/">什么是数据可用性(DA)</a>
+            </div>
+            <p class="sub">5月 12 2023</p>
+            <div class="post-content">
+                
+                    <p>免信任是公共区块链的大前提（“不信任，就验证”）。 以太坊减少信任假设的方法之一是强制执行数据可用性相关规则。 区块生产者需要发布每个区块的数据，参与以太坊共识的节点在本地存储这些数据。</p>
+<p>以太坊网络的所有节点执行从对等节点接收的区块中的交易，确保区块生产者提出的变化与节点独立计算的变化完全一致。 这就是节点验证新信息是否有效的方式，而无须信任区块生产者是诚实的。 如果缺少任何数据，这种验证是无法进行的。</p>
+<p>数据可用性非常重要，因为如果我们不能使用可用数据重现变化，从区块链的角度看，该变化是不存在的。 如果能够获取区块数据，验证节点就可以使用它们自己的以太坊世界状态重新执行交易而无需信任，并独立验证每个区块的正确性。</p>
+<h1 id="数据可用性定义"><a href="#数据可用性定义" class="headerlink" title="数据可用性定义"></a>数据可用性定义</h1><p>数据可用性保证区块提议者发布区块的所有交易数据并且交易数据对于其他网络参与者可用。 以太坊交易在<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/blocks/">区块</a>中处理。 这些区块连接在一起形成“区块链”。</p>
+<p>每个区块有两个主要部分：</p>
+<ul>
+<li><p>区块头：包含关于区块的一般信息（元数据），例如时间戳、区块哈希、区块编号等。</p>
+</li>
+<li><p>区块体：包含作为区块的一部分处理的实际交易。</p>
+</li>
+</ul>
+<p>提出新区块时，区块生产者必须发布整个区块，包括交易数据（包含在区块体中）。 然后，参与共识的节点可以下载区块的数据并重新执行交易以确认其有效性。 如果没有验证交易的节点，区块提议者可以在区块中插入恶意交易并逃脱惩罚。</p>
+<p>最新的以太坊分片路线图优先考虑数据分片，而不是执行分片，从而显著提高以太坊数据吞吐量。此外，模块化区块链还深入研究了Rollup、volitions和validity以及数据可用性解决方案。其都是区块链数据可用性的最新讨论和趋势。</p>
+<p>数据可用性是指组织确保其所有与业务相关的数据在一天中的任何时间、无论何时何地都可供组织、合作伙伴或最终用户使用。</p>
+<h1 id="数据可用性的重要性"><a href="#数据可用性的重要性" class="headerlink" title="数据可用性的重要性"></a>数据可用性的重要性</h1><p>对于 Optimistic Rollup，我们依靠称为欺诈证明的东西来保持定序器是诚实的（我们假设定序器正在运行，除非有人提交表明定序器包含无效&#x2F;恶意交易的欺诈证明）。但如果我们希望其他人能够计算欺诈证明，他们将需要定序器执行的交易中的tx数据才能提交欺诈证明。换句话说，定序器必须使tx数据可用，否则的话，没有人能够保证 optimistic rollup的定序器是诚实的！</p>
+<p><img src="/images/12-1.png"></p>
+<p>而在ZK Rollup的情况下，要保持定序器诚实就简单多了：定序器在执行一批tx时，必须提交有效性证明（ZK-SNARK&#x2F;STACK），而这种有效性证明可保证没有任何tx是无效的&#x2F;恶意的。此外，任何人（甚至是智能合约）都可以轻松验证提交的证明。但对于ZK Rollup的定序器来说，让数据可用仍然是非常重要的。这是因为，作为上述rollup的用户，如果我们想使用垃圾币，我们需要知道Rollup上的账户余额是多少。如果交易数据不可用，我们将无法知道我们的帐户余额如何，并且将无法再与rollup 进行交互。</p>
+<p>简而言之，如果rollup所使用的数据可用性解决方案&#x2F;层，无法跟上rollup的定序器希望转储到其上的数据量，那么定序器（以及rollup）即使愿意，也无法处理更多的tx，这会导致我们今天在以太坊上看到的gas费用飙升的情况。</p>
+<p>这正是数据可用性极其重要的原因：保证数据可用性使我们能够确保rollup定序器的行为，如果rollup要最大化其tx吞吐量，则最大化数据可用性解决方案&#x2F;层的数据空间吞吐量是至关重要的。</p>
+<h1 id="StarkWare实现方式？"><a href="#StarkWare实现方式？" class="headerlink" title="StarkWare实现方式？"></a>StarkWare实现方式？</h1><p>用户在 L2（StarkEx 和 StarkNet）上发送交易，这些交易被分批发送给 STARK 证明器。该 STARK 证明器知道这些交易处理前后的账本状态。证明器生成一个 STARK 证明，证实在这些交易执行后账本新状态的有效性。新状态和 STARK 证明将发送至链上 STARK 验证器。该证明通过以太坊上的不可篡改的智能合约自动验证。</p>
+<p>这种架构提供了两全其美的优势，既可以拥有低交易成本，同时还让以太坊作为中立仲裁方。以太坊作为仲裁方不仅是锦上添花，还为终端用户提供了至关重要的安全性。用户可以确信自己的资金受到以太坊的保护，并且交易一旦在以太坊上得到验证就不可更改。用户还可以完全自行保管其资金。自托管非常重要，因为这确保了用户无需依赖任何第三方，可以随时使用资金。</p>
+<h1 id="数据可用性的三种模式"><a href="#数据可用性的三种模式" class="headerlink" title="数据可用性的三种模式"></a>数据可用性的三种模式</h1><h2 id="Rollup-模式"><a href="#Rollup-模式" class="headerlink" title="Rollup 模式"></a>Rollup 模式</h2><p>Rollup 模式确保账本的状态与证明一起存储在以太坊上。目前 dYdX 和 L2 公共网络 StarkNet 都是使用 Rollup 模式。好处显而易见，可以仅通过与以太坊交互来重新创建账本状态。这意味着，作为终端用户，可以无需信任地与以太坊上的相关智能合约进行交互，即使 L2 系统关闭也可以提取资金。</p>
+<h2 id="Validium-模式"><a href="#Validium-模式" class="headerlink" title="Validium 模式"></a>Validium 模式</h2><p>在 Rollup 模式下，大部分以太坊 gas 成本用于数据可用性上，而不是验证证明。因为在区块链上存储数据非常耗费 gas。在 Validium 模式下，账本信息不会发送到以太坊，而是由数据可用性委员会 (Data Availability Committee, DAC) 存储在链下，以太坊仅存储此账本信息的哈希值。该 DAC 由法定人数的独立成员组成，负责监督状态正确更新，并保留已处理数据的副本。每个 StarkEx 实例都可以创立自己的委员会。负责 StarkEx 上运行的现有应用程序数据可用的委员会成员包括 Consensys、Nethermind、Iqlusion 和 Cephalopod 等实体。</p>
+<h2 id="Volition-模式"><a href="#Volition-模式" class="headerlink" title="Volition 模式"></a>Volition 模式</h2><p>Volition 是一种数据可用性架构，可供在交易层级从 Validium 和 Rollup 模式之间选择。它通过将一个账本保存在链上，另一个账本保存在 DAC 中来实现这点。用户可以在每个单笔交易中选择用 Validium 或 Rollup 模式进行保存。</p>
+<p>想象一下，你在 StarkEx 上运行的应用程序上购买了非常昂贵的 NFT，比如 BAYC 或 CryptoPunk，你就会想用 Rollup 模式来保护该 NFT 的数据，因为需要在以太坊上存储该特定交易的记录。然而，你也可能会购买一些非常便宜的 NFT，比如链游里的小道具，在这种情况下，使用 Validium 来节省成本就是很明智的选择。</p>
+
+                
+            </div>
+        </article>
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/01/hello-world/">Hello World</a>
-    </h1>
-  
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/04/28/StarkNet2023%E8%B7%AF%E7%BA%BF%E5%9B%BE/">StarkNet2023路线图</a>
+            </div>
+            <p class="sub">4月 28 2023</p>
+            <div class="post-content">
+                
+                    <p>原文：<a target="_blank" rel="noopener" href="https://starkware.co/resource/starknet-goals-and-roadmap-for-2023/">https://starkware.co/resource/starknet-goals-and-roadmap-for-2023/</a></p>
+<h1 id="Starknet之旅"><a href="#Starknet之旅" class="headerlink" title="Starknet之旅"></a>Starknet之旅</h1><p>Starknet旨在允许开发者利用STARKs和Cairo的力量来构建他们的应用程序。到目前为止，Starknet的开发重点是为开发者提供面向未来的功能。在Cairo 1.0的支持下，除了Regenesis之外，Starknet的功能现在已经基本完成了。</p>
+<h1 id="再生（Regenesis）"><a href="#再生（Regenesis）" class="headerlink" title="再生（Regenesis）"></a>再生（Regenesis）</h1><p>Starknet今年将经历再生。对于网络来说，这将是一个无缝的事件，因为它不会导致停机时间，也不会重置网络状态。</p>
+<p>Fresh Cairo 1.0合约将不需要任何操作。对他们来说，再生不是一件大事。</p>
+<p>Cairo 0合约需要完成向Cairo 1.0的过渡。只有在我们确保大部分社区能够完成这个过渡之后，Cairo 0将被关闭。</p>
+<p>再生将是Starknet路线图上最后一个计划中的突破性变化，我们希望未来的任何突破性变化都能得到治理决策的审查，就像在以太坊所做的那样。</p>
+<p><img src="/images/10-1.png"></p>
+<h1 id="2023年路线图"><a href="#2023年路线图" class="headerlink" title="2023年路线图"></a>2023年路线图</h1><p>Starknet目前的开发重点是性能和用户体验。以下是估计的时间表：</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>我们未来几个月的主要目标是提高网络性能，以支持用户和开发人员数量的预期增长。正如我们所看到的，性能显然是由吞吐量和延迟定义的，但也由交易成本定义。</p>
+<p>我们在这里按优先级列出了重点领域，并且(如果可能的话)说明了它们发布的计划版本。</p>
+<h2 id="吞吐量和延迟"><a href="#吞吐量和延迟" class="headerlink" title="吞吐量和延迟"></a>吞吐量和延迟</h2><p>即将到来的Starknet v0.12.0将包含显著的吞吐量和延迟改进。这是过去六个月对Starknet堆栈进行Rust-ify工作的结果。这个版本将包括过渡到基于Rust的Sequencer(由StarkWare开发)和新的Rust-Cairo VM (cairo-rs，由LambdaClass开发)——两个开源项目。我们预计很快就会有性能基准测试。</p>
+<p>这种转变将显著减少块执行时间，从而提高吞吐量。在没有拥塞的情况下，我们还希望改善交易延迟，因为延迟的主要原因是块执行时间。</p>
+<p>即使在v0.12.0之后，更高的吞吐量和更低的延迟仍将是首要任务，改进它们的工作将成为Starknet开发的支柱。</p>
+<h2 id="交易成本"><a href="#交易成本" class="headerlink" title="交易成本"></a>交易成本</h2><p>在v0.13.0中，Starknet的交易成本将大幅降低。这将通过针对交易成本的主要组成部分来实现：L1(以太坊)数据成本，它占今天交易成本的95%。Volition将允许开发人员使用混合数据可用性(DA)模式构建Starknet应用程序：链上和链下数据。一篇关于Volition的文章即将发布，详细介绍了它的设计和开发者界面。</p>
+<p>以太坊的EIP-4844(分片Blob交易)预计将于2023年第四季度发布。Starknet将尽快适应并从中受益，此外还有Volition的引入。</p>
+<p>由于以太坊的EIP-4844和Starknet的Volition(链下数据可用性)，我们预计数据成本将大幅降低。</p>
+<h2 id="更快的确认"><a href="#更快的确认" class="headerlink" title="更快的确认"></a>更快的确认</h2><p>随着 Starknet v0.14.0 和 v0.15.0 的发布临近，我们仍然致力于为Starknet的用户提供无缝和可预测的网络体验，无论拥塞程度如何。为了实现这一目标，我们正在优先发展两个关键领域：费用市场和区块间隔。</p>
+<h2 id="费用市场"><a href="#费用市场" class="headerlink" title="费用市场"></a>费用市场</h2><p>对于开发人员和用户来说，只要网络不拥挤，计划中的性能改进将是显而易见的。但是，当网络拥塞发生时，将导致每个人的等待时间增加。为了解决这个问题，Starknet将在v0.14.0引入费用市场，以便根据用户为交易支付的意愿，而不仅仅是其排队的位置，有效地分配 Starknet 的有限资源。</p>
+<h2 id="更短的固定块间隔"><a href="#更短的固定块间隔" class="headerlink" title="更短的固定块间隔"></a>更短的固定块间隔</h2><p>在v0.15.0中，Starknet将切换到恒定和更短的块间隔。目前，每个区块都有自己的证明，并且区块间隔是可变的——守恒量就是区块成本。为了达到固定的块成本，网络等待足够的交易积累，这导致了可变的块间隔。为了解决这个问题，我们计划将Starknet块与其证明之间的1：1关系解耦。从v0.15.0开始，证明将证明一个或多个Starknet块的完整性。这将修复块阻塞间隔，并改善Starknet的用户体验。</p>
+<h1 id="权衡与考虑"><a href="#权衡与考虑" class="headerlink" title="权衡与考虑"></a>权衡与考虑</h1><p>在确定这个路线图时，我们考虑了哪些权衡?</p>
+<p>性能是最重要的——这也是我们从生态系统中得到的响亮而明确的反馈。从v0.12.0开始，这将主要通过增加Sequencer的吞吐量来改进。</p>
+<p>在v0.13.0中，我们必须在更低的交易成本和更好的用户体验(更短&#x2F;固定的块间隔，以及在拥塞期间更可预测的网络响应)之间做出选择。我们决定关注更低的交易成本，而不是用户体验，因为我们希望v0.12.0能带来更好的延迟(以秒为数量级)。如上所述，降低交易成本的主要手段将是Volition的引入，以及更多细节的出现——EIP-4844。</p>
+<p>如果延迟在v0.12.0之后没有得到充分改善，我们将考虑偏离此计划。</p>
+<p>在拥塞期间改善网络行为(通过引入费用市场)可能要等到0.14.0版本。尽管在v0.12.0之后很可能发生拥塞，但我们希望吞吐量的显著改进能够降低这种可能性。因此，我们决定优先考虑降低交易成本。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Cairo 1.0的发布标志着Starknet功能开发趋于稳定。2023年的剩余时间将致力于改善Starknet的性能和用户体验。到今年年底，我们预计网络的基础层将在功能、性能和用户体验方面达到健康稳定的状态。我们预计重大变革的步伐将大幅下降，自然会受到所有网络参与者的控制。到2024年，去中心化将成为网络运营和决策的重点。</p>
+<p>我们相信，面向未来的功能和增强的一流性能和用户体验的结合将继续推动开发人员和应用程序涌入Starknet。</p>
 
-      </header>
+                
+            </div>
+        </article>
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/03/15/StarkNet%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/">StarkNet工作原理详解</a>
+            </div>
+            <p class="sub">3月 15 2023</p>
+            <div class="post-content">
+                
+                    <p>与以太坊相比，Starknet 只需要一个定序器即可在链外执行计算。然后，为了减少数据量，证明者为交易生成 ZK-STARK 证明。最后，验证者在链上验证证明的正确性，最后将多个 L2 交易捆绑成以太坊上的单个交易（称为 Rollup）。因此，Starknet 降低了链上的执行和存储成本，从而带来更低的 Gas 费用和更高的 TPS。</p>
+<h1 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h1><p>让我们看看以太坊是如何工作的。在以太坊中，验证交易的正确性需要所有节点检查、验证和执行每笔交易。此过程确保计算的准确性并在网络上广播结果状态变化。</p>
+<p><img src="/images/5-1.png"></p>
+<p>但Starknet只是在链下执行计算并生成证明，然后在链上验证证明的正确性，最后将多个L2交易捆绑成以太坊上的单个交易。准确地说，ZKR 会将交易写入以太坊 calldata，其中存储对智能合约函数的外部调用中包含的数据（类似于内存）。</p>
+<p>所以Starknet可以大大提高网络运行速度，减少链上通信，增加网络吞吐量，因此与以太坊相比具有更高的TPS和更低的gas。</p>
+<p>简而言之，验证计算的正确性就像老师需要检查班级是否掌握了某个主题。</p>
+<p>以太坊方法是检查每个学生（节点）是否记住了整本教科书（状态历史），而 Starknet 方法是进行纸质测试。后者效率更高、成本更低，但仍然保证安全。</p>
+<p>与大多数 ZKR（例如 Validity Rollup、Scroll、Polygon zkEVM 和 zkSync）一样，Starknet 有一类称为证明者的角色来生成证明。验证者将证明作为 L1（以太坊）上的合约进行验证。</p>
+<p>具体来说，Starknet由五个组件组成：Starknet上的Prover、Sequencer和Full Node，以及Verifier和Starknet Core（它们都部署在以太坊上）。</p>
+<p>下图展示了Starknet的架构</p>
+<p><img src="/images/5-2.png"></p>
+<p>Starknet的工作流程如下：</p>
+<p>当我们在 Starknet 上发起交易时，链下服务器（排序器）会接收、排序、验证并将它们捆绑到区块中。执行交易，然后将状态转换发送到 Starknet Core 合约。</p>
+<p>证明者为每笔交易生成一个证明，并将其发送到部署在以太坊上的验证者合约。</p>
+<p>验证者将验证结果发送到以太坊上的 StarkNet Core 合约，并从 StarkNet Core 合约触发一组新的以太坊交易，以更新链上的全局状态以进行记录保存。状态转换作为“calldata”（EIP-4844 之后的 Blob）发送，以节省 L1 交易 Gas。这些“元数据”可以被Starknet全节点解密。</p>
+<p>完整<a target="_blank" rel="noopener" href="https://github.com/eqlabs/pathfinder">节点</a>存储状态更改、元数据、证明并记录 Rollup 中执行的所有交易。它跟踪系统当前的全局状态。解密“元数据”可以在必要时重建 Starknet 的历史。</p>
+<h1 id="EVM-等效项"><a href="#EVM-等效项" class="headerlink" title="EVM 等效项"></a>EVM 等效项</h1><p>Starknet 网络本身并不等同于 EVM，并且设计了一个 ZK 友好的 Cairo VM。</p>
+<p>Starknet 没有为以太网操作码制作电路，而是制作了自己的一套汇编语言、AIR（代数中间表示）和对 ZK 更友好的高级语言 Cairo。</p>
+<p><img src="/images/5-3.png"></p>
+<p>不与EVM等价的缺点是无法继承以太坊的Solidity代码和工具链，因此不具备以太坊应用生态大规模迁移到Starknet的基础。Cairo语言对于开发者来说有一定的学习门槛，Cairo工具链和库都处于起步阶段。</p>
+<p>然而，设计独立的VM有它的好处。例如，Starknet 的 Cairo VM 对 ZK 更友好，并且更有效地执行电路，从而在未来实现更高的 TPS 和更低的 Gas 使用量（更多详细信息请参见）。此外，放弃 EVM 设计为应用程序创新开辟了许多在以太坊上不可能实现的可能性。</p>
+<p>Starknet 属于Vitalik 定义的4 级EVM 等效项（严格来说，Starknet 是一个 zkVM）。</p>
+<h1 id="STARK-证明系统"><a href="#STARK-证明系统" class="headerlink" title="STARK 证明系统"></a>STARK 证明系统</h1><p>目前，有很多不同的证明系统可用于生成和验证证明，例如 Halo、PLONK、Groth16、Groth09、Marlin 和 Plonky2 等，都属于 SNARK 证明系统。每个证明系统都有一个生成证明的证明者和一个验证证明的验证者。不同的ZK项目几乎使用不同的证明系统。主要的证明系统是SNARK和STARK。Starknet 使用 STARK。</p>
+<p><img src="/images/5-4.png"></p>
+<p>SNARK 代表简洁的非交互式知识论证，而 STARK 代表可扩展的透明知识论证。STARK是SNARK的一种特殊创新类型，其中“S”从Succinct变为Scalable，“T”代表透明，取代了非交互功能。</p>
+<p>STARK比SNARK有更多的创新。它不需要像 SNARKs 那样依赖“可信设置”。它还具有更简单的密码学假设，避免了椭圆曲线、配对和指数知识假设的需要，纯粹依赖于哈希和信息论，因此可以抵抗量子攻击。一般来说，STARK比SNARK更安全。而且 STARK 更具可扩展性。证明生成速度是线性可扩展的，验证时间和证明大小是对数可扩展的。但缺点是生成的证明尺寸较大。随着证明大小的增加，验证成本略有下降，这意味着证明越大，平均成本越低。</p>
+<h2 id="证明时间呈线性变化"><a href="#证明时间呈线性变化" class="headerlink" title="证明时间呈线性变化"></a>证明时间呈线性变化</h2><p>在 80 位安全性下，STARK 每执行 12,288 次哈希调用需要 1 秒，即每秒产生 12,288 次调用；而每 98,304 次哈希调用需要 10 秒，每秒产生 9,830 次调用。因此，我们可以知道证明者所花费的时间与哈希调用的数量几乎呈线性关系，哈希调用越多，平均验证时间越短，平均证明大小越小</p>
+<h2 id="递归证明"><a href="#递归证明" class="headerlink" title="递归证明"></a>递归证明</h2><p>通用且简洁的知识系统证明&#x2F;论证，例如 STARK，可用于增量验证计算。这意味着计算可以生成证明该计算的先前实例的正确性的证明。这个概念被非正式地称为“递归证明组合”或“递归 STARK”。</p>
+<p>换句话说，递归 STARK 证明者将生成一个声明的证明，表明系统的状态可以从 a 转移到 a，a+1因为证明者已经验证了证明 的计算完整性的（递归）证明a，并且忠实地执行了计算状态a，达到新的状态a+1。</p>
+<p>简而言之，您可以理解递归证明将两个证明 a和组合a+1成一个证明。</p>
+<h2 id="Cairo-虚拟机and-Cairo-语言"><a href="#Cairo-虚拟机and-Cairo-语言" class="headerlink" title="Cairo 虚拟机and Cairo 语言"></a>Cairo 虚拟机and Cairo 语言</h2><p>Cairo VM 是 STARK 友好、图灵完备的冯诺依曼 CPU 架构<a target="_blank" rel="noopener" href="https://www.cairo-lang.org/">。</a>它包含一种名为 Cairo 的编程语言，该语言基于 Cairo 汇编和 AIR（代数中间表示），使其编译效率很高。</p>
+<p>我们先来看看开罗VM。Cairo VM 是一个并行状态机，允许事务并发执行，显着提高 TPS。相比之下，EVM 是串行状态机。</p>
+<p>Cairo 是一种智能合约语言，可以部署在 Starknet 上或之外。任何 Cairo 程序都可以生成 STARK 证明。它的语法与 Rust 类似。</p>
+<h2 id="引导加载：从哈希加载程序"><a href="#引导加载：从哈希加载程序" class="headerlink" title="引导加载：从哈希加载程序"></a>引导加载：从哈希加载程序</h2><p>一个程序可以将另一个程序的字节码写入内存，然后将程序计数器设置为指向该内存段，从而开始执行另一个程序。</p>
+<p>个想法的一个具体用途是“从哈希引导加载”：一个称为“引导加载程序”的程序计算并输出另一个程序的字节码的哈希，然后开始如上所述执行它。这样，验证者只需要知道正在执行的程序的哈希值，而不是其完整的字节码。</p>
+<p>这提高了隐私性和可扩展性：</p>
+<ol>
+<li><p>隐私：验证者可以在不知道计算结果的情况下验证程序的执行。</p>
+</li>
+<li><p>可扩展性：假设验证者已知程序哈希，则验证时间并不线性依赖于程序大小，如果将程序（而不是其哈希）作为验证者的输入给出，则会出现这种情况。验证时间和程序大小呈对数关系，如 STARK 部分所述。</p>
+</li>
+</ol>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+                
+            </div>
+        </article>
+    
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/02/07/20230207%E9%9A%8F%E7%AC%94/">20230207随笔</a>
+            </div>
+            <p class="sub">2月 07 2023</p>
+            <div class="post-content">
+                
+                    <p>最近挺浮躁的，心里一直想着完善装修的事情，也没有认真工作、学习，今天有几个事情挺触动我的，一个是大港群里又在说微电子毕业生工作5年要价100w一年，一个是翁吊的400股期权开始回购，价值30w。<br><br/><br>虽然口里总是说的躺平，但是羡慕和不甘总是推着我让我继续往前，不能一层不变，生活总是给我无数的鸡血也给我无数的懈怠，我想着跳槽拿更多的工资，我想着勤奋点做更好的项目，我想着刻苦点往区块链安全转行，但，都是持续了很短一段时间便被打断，内心缺少坚定，便时长变成无头苍蝇找不到前方的路。<br><br/><br>我总是很纠结，可是纠结的事情或许都是自己的臆想，能做的就是坚定自己的方向，规划好每一件必须要做的事情，走好自己的路，想要便去做到，外面的故事何其多，可是又和我有什么关系，认真规划好上班的8小时，晚上的3小时，争分夺秒，那才是属于我的故事<br><br/><br>感谢音乐让我能平静下来，现在是2023年2月7号17点30，还有30分钟离开公司，加油</p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+                
+            </div>
+        </article>
+    
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/01/23/%E6%AF%94%E7%89%B9%E5%B8%81%E4%BA%8C%E5%B1%82%E7%BD%91%E7%BB%9C%E4%BB%8B%E7%BB%8D/">比特币二层网络介绍</a>
+            </div>
+            <p class="sub">1月 23 2023</p>
+            <div class="post-content">
+                
+                    <h1 id="什么是比特币-L2-？"><a href="#什么是比特币-L2-？" class="headerlink" title="什么是比特币 L2 ？"></a>什么是比特币 L2 ？</h1><p>BTC Layer 2 是 BTC 网络之上的一层。其主要目的是解决 BTC 网络交易吞吐量不足、交易费用过高和扩容困难的问题。通俗地说，Layer 1 指的是比特币公链。为了解决 BTC 网络的吞吐量问题并避免高额费用，可以将交易移至 Layer 2 进行处理，处理完成后将结果返回至 Layer 1，从而减轻网络压力比特币网络。其结果是比特币的流动性和可扩展性得到扩大。</p>
+<p>相比于以太坊等生态的繁荣，比特币生态上的项目还很少，目前，整个以太坊生态系统的 TVL 市值达到约 260 亿美元，比特币生态系统的 TVL 约为 1.8 亿美元，但比特币市值近 6000 亿美元，以太坊市值约 2300 亿美元，因此从长远看，比特币生态还有相当大的成长空间。</p>
+<p>其实，BTC 的扩容方案要远早于以太坊扩容提议的出现，早在 2012 年以来，就出现了不同的协议和架构，利用比特币作为结算网络的特性，整个想法是增加主链的功能而不使其面临风险。</p>
+<h1 id="比特币-L2-是如何实现的？"><a href="#比特币-L2-是如何实现的？" class="headerlink" title="比特币 L2 是如何实现的？"></a>比特币 L2 是如何实现的？</h1><p>比特币 L2 首先有一个虚拟机开发层，可以供开发者进行开发；其次则可以有自己的共识机制，但是区块是要写入到比特币网络的。BTC 网络是 UTXO，每个区块可以支持其他文本的写入，所以比特币 L2 的 Validator 们，将 L2 的记账区块写入比特币区块，以此让比特币矿工打包交易。</p>
+<p>如何决定哪个 Validator 写入呢？</p>
+<p>这里面用到了随机数，而这个随机数是通过比特币 hash 值确定的，比特币的 hash 值是不可预测的链上随机数，故 Validator 作弊的可能性降低到了最小。</p>
+<h1 id="BTC-Layer2-生态发展现状"><a href="#BTC-Layer2-生态发展现状" class="headerlink" title="BTC Layer2 生态发展现状"></a>BTC Layer2 生态发展现状</h1><p>目前 BTC Layer2 方案有很多，比较知名的有 Lightning Network、Rootstock、Stacks 等。另外，Liquid、Rollkit、RGB 等一些项目和协议也有一定的使用场景。</p>
+<h2 id="闪电网络"><a href="#闪电网络" class="headerlink" title="闪电网络"></a>闪电网络</h2><p>闪电网络（Lightning Network）是 BTC 二层扩容方案，旨在使比特币交易更快、更便宜。比特币之所以拥堵，是因为其主网 TPS 每秒只能进行 7 笔交易，用户为了让自己提交的交易尽快打包出块，就需要提高支付 Gas 费来获得矿工打包优先权，这就是为什么 BRC-20 协议出来后，比特币链上拥堵、费用高的原因。闪电网络能的核心逻辑是将用户的交易环节放在链下，最终的交易成果放在链上，从而提 高比特币网络的交易效率，用户可以快速高效的完成支付。</p>
+<p>闪电网络的概念最早由 Joseph Poon 和 Thaddeus Dryja 于 2015 年提出，其想法是让两个人在自己控制的多重签名地址中封锁一系列比特币，从而建立一个由协议本身管辖的协作协议。这个新地址的创建是通过比特币网络上的真实交易完成的，被称为「打开支付通道」。两个参与者之间进行的 BTC 交易将不会记录在比特币区块链中，而是由闪电节点存储状态。一旦双方决定关闭支付通道，内部发生的所有交易都会被合并，然后广播到主区块链分类账上，在扣除期间进行的所有交易后登记其钱包的最终余额。</p>
+<p><img src="/images/11-1.png"></p>
+<h2 id="Rootstock"><a href="#Rootstock" class="headerlink" title="Rootstock"></a>Rootstock</h2><p>Rootstock 是比特币网络上一条可以兼容 EVM 的侧链，它是一个智能合约平台，它允许开发者使用以太坊的语言去构建智能合约。Rootstock 的亮点是合并开采，即比特币矿工可以同时开采比特币和 RSK 区块，让开发者获得更好的收益。</p>
+<p>Rootstock 是比特币的侧链，因此它有自己的网络和区块链，与比特币相比，Rootstock 提供了更加丰富的功能。Rootstock 使用 RBTC 作为处理交易和合约手续费，由主网上的 BTC 通过跨链桥 1：1 发行，可以随时转为比特币。开发者们在 RSK 网络中部署智能合约时消耗的费用就是用 RBTC 代币来结算的，RBTC 主要用于支付智能合约的执行费用，与 ETH 用作支付以太坊 gas 费类似，Rootstock 则将其奖励给提供算力运行智能合约的矿工。</p>
+<p>RIF OS 则是建立在 Rootstock 上的一套协议，它作为基础设施，为开发者提供区块链基础设施和服务，RIF 生态系统包含一系列产品，包括 DeFi、存储、域名服务、支付解决方案等。它有自己的原生代币\(RIF，该代币的主要作用是访问 RIF OS 服务时作为支付媒介，例如在网络上建立 dApp 时使用\)RIF 作为底层支付代币，另外可以作为抵押品托管，以铸造 RIF DeFi 生态系统中的各种资产。</p>
+<p><img src="/images/11-2.png"></p>
+<p>可以看出，整个架构关系中，BTC 为第一层做价值存储，Rootstock 智能合约网络为第二层做执行，RIF OS 协议为第三层提供基础设施服务。</p>
+<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><p>Stacks 是比特币的智能合约层，它为比特币带来了智能合约功能，而无需修改比特币本身。Stacks 采用金字塔方法，在底部有基础结算层（比特币），然后在其顶部添加智能合约和可编程性层（Stacks），然后在其上层实现可扩展性和速度（ Hiro 子网）。通过采用这种分层方法，使其能够拥有与以太坊等链相同的功能。</p>
+<p>因此，Stacks 可以看作是比特币 Layer 2，具有一些独特的属性，例如拥有自己的代币，它充当激励机制来维护所有交易的历史分类帐并使用自己的安全预算进行操作。与闪电网络相比，Stacks 为比特币添加了额外的功能，但最终仍停留在比特币上。同时 Stacks 允许利用比特币作为基础结算层来构建去中心化且抗审查的软件，这也是 Stacks 与以太坊上的 Layer2 扩展解决方案的区别。Stacks 可以保持比特币主网的安全性，快速生产区块，并添加额外的层来提高功能和速度。但如果其他层受到损害，根本不会影响基础层。因此，它并不是一个类似以太坊的 Layer2。</p>
+<p><img src="https://www.bejson.com/static/bejson/js/component/ueditor/themes/default/images/spacer.gif" alt="图示 描述已自动生成"></p>
+<p>STX 是 Stacks 链上的代币，主要用作质押奖励、流动性挖矿和投票治理，此外 STX 还用于支付交易的 Gas 费。预计下半年，Stacks 将迎来 Nakamoto 升级，该升级将优化 Clarity 语言，引入子网和 SBTC。这一升级将为下一次 BTC 生态的爆发提供比较完善的基础条件。特别是 SBTC 的引入，将解决 Stacks 上原生资产的问题，今后主网上的智能合约能够使用 SBTC 开展借贷、兑换和铸造稳定币等各种 DeFi 业务，扩大 BTC 生态应用。</p>
+<p>除了闪电网络、Rootstok 和 Stacks 这些比较知名的 BTC Layer2 项目，还有其他 BTC Layer 2 项目也正在发展。</p>
+<p>Liquid Network：Liquid Network 是基于比特币的侧链网络，旨在解决比特币的流动性问题，加强比特币交易的速度和隐私度，也可以在这条链上发行新的数字资产。与 RSK 一样，Liquid 使用的 L-BTC 也是与主网 BTC1：1 锚定。同时它还支持部署智能合约，目前已经搭建的应用有 DEX Sideswap 和借贷平台 Hodl。</p>
+<p>RGB 协议：RGB 协议是基于比特币网络做资产发行、资产转移和实现智能合约的协议，它具有可扩展性，可以支持开发者在比特币和闪电网络上部署智能合约，维护开发者的数据安全。其愿景就是让比特币网络像以太坊一样基于智能合约的开发，可以在网络上部署代币、发行 NFT 资产、实现 Defi 应用等。RGB 协议主要支持 RGB20（用于发行同质化代币）和 RGB21（用于发行 NFT），目前协议还在开发阶段，需要更多的开发者和项目加入，共同完善生态。</p>
+<p>Rollkit：Rollkit 是由 Celestia 开发的用于比特币 Rolup 的模块化框架，将比特币渲染成一个模块化的框架，分离了比特币的共识、数据可用性与执行过程。Rollkit 允许开发人员部署 sovereign rollups，将比特币作为数据可用性层，为 Rollup 交易提供相当于比特币主网的安全性。</p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+                
+            </div>
+        </article>
+    
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/01/12/20230112%E9%9A%8F%E7%AC%94/">20230112随笔</a>
+            </div>
+            <p class="sub">1月 12 2023</p>
+            <div class="post-content">
+                
+                    <p>一晃又是2个月过去了，没发生什么大事，依旧平淡<br>想到自己辛苦存的钱都给了房子，有时候会想这房子买的对吗，如果没有金融属性，你是否愿意为了一张床花费好几百万呢，安啦<br><br/><br>元旦和老婆去了趟新开业的高新万达，拿着保温杯看着斗舞的年轻人那刻，感觉自己是真的老了，我瞬间竟然有点不好意思，时间是真的快，在不断追求物质生活的同时感觉自己的精神世界也匮乏了，之前的爱好呢，还记得吗，真要变成一个中年油腻老男人？想想真无力</p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                
+            </div>
+        </article>
+    
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2023/01/04/%E4%BB%A5%E5%A4%AA%E5%9D%8AL3%E4%BB%8B%E7%BB%8D/">以太坊L3介绍</a>
+            </div>
+            <p class="sub">1月 04 2023</p>
+            <div class="post-content">
+                
+                    <p>要想弄明白Layer3，就不得不从layer1说起，让我们看看layer1到layer2在到layer3的进化历史，探索其他的奥秘</p>
+<h1 id="Layer1"><a href="#Layer1" class="headerlink" title="Layer1"></a>Layer1</h1><p>Layer1 的先导者是以以太坊为代表的一众区块链智能合约平台，它们以较高的去中心化程度、更高的交易吞吐量与以太坊竞争，构成了 Layer1 阵营的“排头兵”。但是如果没有以太坊的基础设施架构，这些公链的发展是困难的，因此许多 Layer1 采取了“ EVM 兼容”的策略，以实现对以太坊缺陷的补足与自我优势的发展。</p>
+<p>然而，Layer1 如雨后春笋般地崛起带来了平台运作的挑战与压力。以太坊公链功能受限使其无法承载生态快速发展所带来的越来越多的执行和计算量，为在公链拥堵的环境下完成交易就不得不支付高昂的交易成本。</p>
+<h1 id="Layer2"><a href="#Layer2" class="headerlink" title="Layer2"></a>Layer2</h1><p>Layer2 的基本优化逻辑是进行公链功能的剥离和分层，把提供安全保障的共识机制留在 Layer1，将计算和执行下放至 Layer2，促使公链成为 Layer2 的结算层，相比跨链和分片等机制更容易实现和操作。Layer2 的应用普及，交易成本显著降低，可以说是一场非常成功的行业变革。</p>
+<p><img src="/images/8-1.png"></p>
+<h1 id="Layer3"><a href="#Layer3" class="headerlink" title="Layer3"></a>Layer3</h1><p>Layer3 如同 Layer2 嵌套在 Layer1上，它和 Layer2 之间也有着嵌套、递归的关系。通过递归证明的乘法效应，实现强大的可扩展性，同时这种扩容是呈几何级增长的，应用程序的设计者也能够更好地控制相关技术堆栈。通过自定义数据模型，加快区块链的技术周转率和功能运作效率。</p>
+<p><img src="/images/8-2.png"></p>
+<p>进一步讲，如果 Layer3 能够实现大规模落地应用，那么隐私计算可以随时随地应用于任何交易。</p>
+<p>我们都知道，区块链中数据是在加密状态下通过零知识证明、智能合约等方式实现数据之间的隐私计算，但这一需求是目前 Layer2 的基础设施所无法支持的。如果将隐私计算功能成功放置到 Layer3上，凭借其强大的扩展性或许能够使 Layer2 上的隐私保护交易成为可能。</p>
+<p>Layer2 虚拟机的 Layer2 将维持去中心化，通用的计算层，提供可组合性，而 Layer3 应该作为应用特定链，满足不同应用独特的需求。图灵固化性为架构化打下了良好的基础，一旦具备图灵性，则理论上可以在其上创建任何可能的应用。</p>
+<p>也就是说，Layer2 为了维持其通用性，必然会进行部分取舍，无法满足所有应用的需求。最直接的体现，是 StarkWare 为了更兼容地生成证明，开发了 Cairo 语言与 CairoVM，对以太坊并不，接下来就可以由一条 Layer3 链来解决其安全性。</p>
+<p>可能的 Layer3 示例包括：</p>
+<ul>
+<li><p>兼容：通过在 Layer2 的虚拟机上实现一个其他语言的解释器，以兼容其他虚拟机</p>
+</li>
+<li><p>效率：如果应用追求超高的 TPS（例如游戏、社交），可以考虑让渡部分安全性，使用 Validum 方案，在 Layer2 上结算；应用也可以根据自己的需求定制交易格式，以实现更高的压缩率。</p>
+</li>
+<li><p>隐私：专门搭建一条隐私链，在 Layer2 上结算，无法被公开结算到。</p>
+</li>
+</ul>
 
-      
+                
+            </div>
+        </article>
+    
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2022/10/15/%E5%B8%A6%E4%BD%A0%E7%90%86%E6%B8%85StarkWare-StarkEx-StarkNet/">带你理清StarkWare/StarkEx/StarkNet/STARKs</a>
+            </div>
+            <p class="sub">10月 15 2022</p>
+            <div class="post-content">
+                
+                    <p><strong>首先一句话总结就是一家名为StarkWare 的公司为以太坊扩容提供了StarkNet和StarkEx的两种方案</strong></p>
+<h1 id="StarkWare"><a href="#StarkWare" class="headerlink" title="StarkWare "></a>StarkWare </h1><p>StarkWare 是 zk rollups 赛道内最好的公司之一，由以色列理工学院的 Eli Ben-Sasson 教授（zk SNARK &amp; zk STARK 的联合发明者）联合创立，它为区块链行业提供基于 STARK 技术的解决方案。目前开发了两款产品：StarkEx &amp; StarkNet。StarkWare 致力于在包括技术、数学、创新与产品交付的双重关注；支持其他推动以太坊和&#x2F;或 STARK 的团队；以及努力使产品开源、去中心化并专注于将 STARK 作为公共产品。</p>
+<h1 id="STARKs"><a href="#STARKs" class="headerlink" title="STARKs"></a>STARKs</h1><p>在 STARK 方案中，只需要生成一份证明，计算结果就可以在简单几步内得到验证。 有了 STARKs，较大的计算可以在链下进行，减少了区块链上验证所需的计算量。只需几步链上操作，验证者就可以验证大规模的链下计算。</p>
+<p>STARKs 解决方案可以用单一 STARK 证明进行组合、计算以及验证成千上万的区块链交易，处理成本将分摊到一批交易的所有交易中，保证了 Ethereum 的安全性，降低了 Gas 费用。</p>
+<p>低计算成本的好处在于，它将方便新类型的应用在链上完成搭建，改善了用户体验，降低了 Gas 成本，并确保了 Ethereum 的安全性。</p>
+<h1 id="StarkEx"><a href="#StarkEx" class="headerlink" title="StarkEx"></a>StarkEx</h1><p>一种基于以太坊区块链的应用特定的 Layer-2 扩展引擎，旨在解决以太坊等 Layer-1 区块链网络的可扩展性问题。StarkEx 通过使用一种名为 STARK 证明的先进密码学系统，实现了快速、低成本的交易，同时不妥协安全性、隐私性和自我保管。</p>
+<p>它提供了一系列用于实现便宜的链下计算的应用流程，将多笔交易打包在一个 STARK 证明中，然后在链上进行验证，降低了每笔交易的平均燃料成本。StarkEx 扩展引擎的工作原理，包括批处理、验证和更新、生成证明以及链上验证四个步骤。</p>
+<p>StarkEx 已经成功部署在多个应用中，如 dYdX、Immutable、Sorare、DeversiFi 和 Celer。和 StarkNet 的区别在于：</p>
+<p>StarkEx 和 StarkNet 是由 StarkWare 开发的两个不同的技术，它们都使用 STARK 零知识证明技术，但有不同的目标和用途。</p>
+<p>1. StarkEx：StarkEx 是一个针对特定应用的 Layer-2 扩展引擎，主要关注优化以太坊区块链上的单一应用程序的性能。它通过将多个交易批量处理并在链下进行验证，实现了更快速、低成本的交易。主要用于去中心化交易所（DEX）、NFT 市场和游戏等。</p>
+<p>2. 通过使用 STARK 证明技术，StarkEx 提供了安全、高效和低成本的交易体验。StarkNet 是一个无需许可的更为通用、完整的 Layer-2 解决方案，它为整个以太坊生态系统提供了一个去中心化的计算平台，开发者可以在其中部署用 Cairo 语言编写的智能合约。</p>
+<p>StarkNet 支持与其他合约进行交互，允许丰富的协议组合，并可通过异步消息传递与以太坊合约进行交互。目标是提供一个可扩展、低成本且安全的环境，以便开发者在其上构建和部署智能合约。与 StarkEx 不同，StarkNet 可以看作是一个全面的 Layer-2 操作系统，允许开发者创建各种去中心化应用程序，而不仅仅是针对特定用途的解决方案。</p>
+<p>总之，StarkEx 是一个应用特定的 Layer-2 扩展引擎，主要关注特定应用程序的性能优化，而 StarkNet 是一个更为通用、全面的 Layer-2 解决方案，旨在为整个以太坊生态系统提供一个去中心化的计算平台。</p>
+<h1 id="StarkNet"><a href="#StarkNet" class="headerlink" title="StarkNet"></a>StarkNet</h1><p>Starknet 是一个无需许可的去中心化有效性折叠网络（也称为「ZK-Rollup」）。它作为以太坊上的 L2 网络运行，使任何 dApp 都能在不影响以太坊可组合性和安全性的前提下实现无限扩展计算，这要归功于 Starknet 依赖于最安全且最具可扩展性的加密证明系统 STARK。</p>
+<p>Starknet 合约和 Starknet 操作系统使用 Cairo 编写 - 支持部署和扩展任何用例，无论业务逻辑如何。Starknet 作为一种去中心化的二层网络解决方案，旨在为去中心化应用（dApp）提供更高的扩展性和性能。通过在以太坊上运行，它可以利用现有的基础设施和安全性，同时提供更高的计算能力。</p>
+<p>Cairo 是一种专为 Starknet 设计的编程语言，它旨在简化智能合约的开发和部署。通过使用 Cairo，开发人员可以轻松地为各种用例构建高度可扩展的应用程序，包括金融、游戏、供应链等。</p>
+<p>Starknet 是一个 validity rollup，这意味着每个块内的执行都需要被证明，这就是 STARKs 派上用场的地方然而，STARK 证明可以解决以多项式约束语言制定的陈述，并且不了解智能合约的执行。为了克服这个差距，所以开发了 Cairo。</p>
+<p>总的来说，Starknet 是一个充满潜力的二层网络解决方案，它可以使现有的 dApp 在扩展性和性能方面迈出重要一步。通过采用 STARK 加密证明系统和 Cairo 编程语言，Starknet 为开发者提供了一个强大且灵活的平台，以满足各种业务需求。</p>
+<p><strong>StarkEx 和 StarkNet 都是基于 STARK 的扩容解决方案，每一个都兼备了可扩展性、低成本和安全性，只是操作参数有所不同。对于 StarkEx 来说，一个独立且兼容 StarkEx 的 API 的应用程序可能是最合适的选择。</strong></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post article-entry">
+            <div class="post-title">
+                <a class="post-title-link text-underline" href="/2022/10/05/Cairo%E7%9F%A5%E8%AF%86%E7%AE%80%E4%BB%8B/">Cairo知识简介</a>
+            </div>
+            <p class="sub">10月 05 2022</p>
+            <div class="post-content">
+                
+                    <p> Cairo 是 STARK 证明系统的其中一个编程语言，让开发者能透过 Cairo 来使用 STARK，撰写效能更高的 DApp</p>
+<h1 id="Cairo-编程语言："><a href="#Cairo-编程语言：" class="headerlink" title="Cairo 编程语言："></a>Cairo 编程语言：</h1><h2 id="设计理念："><a href="#设计理念：" class="headerlink" title="设计理念："></a>设计理念：</h2><p>Cairo 是一种通用的声明式编程语言，旨在使开发者能够更容易地编写复杂的智能合约和计算任务。</p>
+<p>它采用了类似于函数式编程的方法，鼓励可复用的模块和组件。</p>
+<h2 id="语法和特性："><a href="#语法和特性：" class="headerlink" title="语法和特性："></a>语法和特性：</h2><p>声明式编程：Cairo 强调了数据流和约束的概念，允许开发者更容易地表达问题的本质。</p>
+<p>状态转换：Cairo 支持在合约中定义状态变量，这些变量可以在交易中被修改，从而允许合约执行状态转换。</p>
+<p>零知识证明：Cairo 是零知识证明系统的一部分，它可以生成用于验证交易的证明，同时保护了交易的隐私。</p>
+<p>标准库：Cairo 提供了一套丰富的标准库，包括加密学、哈希函数等常用的密码学原语，使得开发者可以轻松地实现复杂的加密功能。</p>
+<h2 id="适用场景："><a href="#适用场景：" class="headerlink" title="适用场景："></a>适用场景：</h2><p>Cairo 不仅适用于智能合约的编写，还可以用于一般的计算任务，例如数据处理、模型训练等。</p>
+<p>由于其通用性和灵活性，Cairo 可以用于各种需要高效、安全和隐私保护的计算场景。</p>
+<h1 id="Cairo-在-StarkNet-上的作用："><a href="#Cairo-在-StarkNet-上的作用：" class="headerlink" title="Cairo 在 StarkNet 上的作用："></a>Cairo 在 StarkNet 上的作用：</h1><h2 id="StarkNet-架构："><a href="#StarkNet-架构：" class="headerlink" title="StarkNet 架构："></a>StarkNet 架构：</h2><p>Cairo 是 StarkNet 的核心编程语言之一，用于编写 StarkNet 合约。</p>
+<p>StarkNet 提供了一个执行环境，使得 Cairo 合约可以在以太坊区块链上运行，并且可以利用以太坊的安全性和去中心化特性。</p>
+<h2 id="合约部署和交互："><a href="#合约部署和交互：" class="headerlink" title="合约部署和交互："></a>合约部署和交互：</h2><p>开发者可以使用 Cairo 编写智能合约，并将其部署到 StarkNet 上，就像在以太坊上部署智能合约一样。</p>
+<p>用户可以通过交易与部署在 StarkNet 上的 Cairo 合约进行交互，从而执行各种功能，如转账、数据查询等。</p>
+<h2 id="性能优势："><a href="#性能优势：" class="headerlink" title="性能优势："></a>性能优势：</h2><p>StarkNet 利用了零知识证明技术，使得交易处理速度极快，可以处理大量的交易，同时保护了交易的隐私。</p>
+<h1 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h1><p>StarkWare 提供了一套工具链，包括编译器、调试器等，来帮助开发者使用 Cairo 编写、测试和部署智能合约。</p>
+<p>总的来说，Cairo 是 StarkNet 上的一种强大的编程语言，它的设计理念和特性使得开发者可以更轻松地构建复杂的智能合约和计算任务。通过 Cairo 和 StarkNet 的结合，开发者可以在以太坊区块链上构建高效、安全、隐私保护的去中心化应用程序。</p>
+
+                
+            </div>
+        </article>
+    
+</div>
+<div class="side-bar">
+
+
+    <div class="avator" id="avator">
+    <div class="title">
+        <a href="#" class="text-underline">About Me</a>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/01/hello-world/" data-id="clofw8sdw0001kku83un98shd" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-starknet介绍" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/24/starknet%E4%BB%8B%E7%BB%8D/" class="article-date">
-  <time class="dt-published" datetime="2022-02-24T14:56:43.000Z" itemprop="datePublished">2022-02-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E4%BA%8C%E5%B1%82%E7%BD%91%E7%BB%9C/">二层网络</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/24/starknet%E4%BB%8B%E7%BB%8D/">starknet介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="StarkNet介绍"><a href="#StarkNet介绍" class="headerlink" title="StarkNet介绍"></a>StarkNet介绍</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><p>这是一篇介绍starknet的文章</p>
-
-      
+        <img src="avator.jpg" class="ava-img">
+        <h3 class="author">Leilei</h3>
+        <div class="icon-list">
+        <a href=""><i class="iconfont icon-weibo icon-item"></i></a>
+        <a href="1334274483@qq.com"><i class="iconfont icon-email icon-item"></i></a>
+        <a href=""><i class="iconfont icon-github icon-item"></i></a>
+        <a href=""><i class="iconfont icon-linkedin icon-item"></i></a>
+        </div>
+    <div class="tags">
+    <h3 class="tags-title">Tags</h3>
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarkNet/" rel="tag">StarkNet</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8AL2/" rel="tag">以太坊L2</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E8%AE%B0/" rel="tag">随记</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8AL3/" rel="tag">以太坊L3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bitcoin-Layer2/" rel="tag">Bitcoin Layer2</a><span class="tag-list-count">1</span></li></ul>
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/24/starknet%E4%BB%8B%E7%BB%8D/" data-id="clofw8sdr0000kku8eunu4qcx" data-title="starknet介绍" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/StarkNet/" rel="tag">StarkNet</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+</div>
 
 </section>
+
+    <nav class="page-nav">
+    
+    
+        <a class="next" href="/page/2/">
+            <span class="next-text">下一页</span>
+            <i class="iconfont icon-right"></i>
+        </a>
+    
+    </nav>
+
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
         
-          <aside id="sidebar">
-  
+    </body>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%8C%E5%B1%82%E7%BD%91%E7%BB%9C/">二层网络</a></li></ul>
-    </div>
-  </div>
+<script src="/js/jquery-3.3.1.min.js"></script>
 
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarkNet/" rel="tag">StarkNet</a></li></ul>
-    </div>
-  </div>
+<script src="/js/back-to-top.js"></script>
 
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/StarkNet/" style="font-size: 10px;">StarkNet</a>
-    </div>
-  </div>
+<script src="/js/scroll.js"></script>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li></ul>
-    </div>
-  </div>
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2023/11/01/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/24/starknet%E4%BB%8B%E7%BB%8D/">starknet介绍</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2023 Leilei<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
 </html>

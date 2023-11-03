@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>Rullups技术详解 | stay hungry stay foolish</title>
+
+
+<link rel="stylesheet" href="/styles/main.css">
+
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div class="container">
+            <header>
+<div class="main">
+<div class="title">
+    <a href="#" class="logo">stay hungry stay foolish</a>
+</div>
+<div class="site-nav">
+    <ul id="menu" class="menu">
+    
+        <li class="menu-item text-underline">
+            <a href="/">主页</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/archives">归档</a>
+        </li>
+    
+        <li class="menu-item text-underline">
+            <a href="/about">关于</a>
+        </li>
+            
+    </ul>
+</div>
+</div>
+</header>
+            <main class="main">
+                <section class="posts clearfix">
+<div class="post-wrapper">
+    <article class="post article-entry">
+    <div class="post-title">
+        Rullups技术详解
+    </div>
+    <p class="sub">3月 05 2022</p>
+    <div class="post-content">
+        <h1 id="什么是Rullups？"><a href="#什么是Rullups？" class="headerlink" title="什么是Rullups？"></a>什么是Rullups？</h1><p>总的来说Rullups就是通过将以太坊交易的成本加上汇总用户之间批量交易的较小成本来减少费用。它们还加速了事情的发展：汇总速度非常快，并且以太坊区块链只需要处理一笔交易而不是几笔交易。这很有用，因为以太坊的独立交易速率约为每秒 15 笔交易。</p>
+<p>为了解决以太坊拥堵和gas消耗过高的问题，链上改进方案中包括了扩展区块大小、改变共识算法、分片等等。虽然链上的改进方案在当前的区块链技术发展阶段还没有完全展现出在提升效率上的实力(如ETH2.0的分片还在开发中)，但其都无法改变在区块链上为了安全性必须要承受冗余存储和计算的约束的现状。而这一约束可以被链下的改进方案打破。将存储和计算转移到链下，并设计机制保障链下存储和计算的可信与安全是链下扩展方案的核心。Rollup就是链下方案中的一类。</p>
+<h1 id="Rollup的演进"><a href="#Rollup的演进" class="headerlink" title="Rollup的演进"></a>Rollup的演进</h1><p><img src="/images/2-1.png"></p>
+<p>最早的Layer2是侧链技术，其发展一直不温不火，最近由于Polygon的崛起引来了很多讨论。但，如Polygon一类的侧链的运行基础是信任 一组验证者，这类有强信任假设的方案，在没有易用的无信任假设的方案诞生前，可以被作为一种折中方案应用，但绝不是最终的最优方案。另外，业界对于将侧链归类于Layer2是持怀疑甚至是质疑态度的，原因在于侧链不会保持向主链同步状态变更，更接近一条独立的链，一个新的Layer1。</p>
+<p>闪电网络是最早的尝试无信任假设的Layer2解决方案之一。他通过RSMC和HTLC技术分别解除了对交易对手方的信任依赖和对资金路由节点的信任依赖。即，用户无需假定交易对手方和转发资金的中间节点是不会作恶的。但是这种方案在安全性、易用性、通用性上都付出了代价 ，限制了该项技术的应用推广。</p>
+<p>Plasma是闪电网络之后出现的技术。其模型兼有侧链和闪电网络的特点。Plasma与闪电网络的不同在于链下交易的传递、组织和提交形式。闪电网络链下交易的传递基于以状态通道连接而成的网络，交易存储在交易双方的状态通道中，通道中的交易对手方均可自行提交通道中的交易带来的状态变更。但Plasma选择了与侧链更为接近的交易传递和组织形式，会有Layer2的运营者负责接收交易、组织存储(在Plasma Cash方案中，需要用户自己存储一部分交易信息)和将状态变更提交上链。然而，侧链是基于信任的模式，用户侧链上的运营者(或者说矿工)不作恶。在去信任化上，Plasma沿袭了闪电网络使用欺诈证明的思想，通过设置挑战期和激励博弈来防止作恶。但是，Plasma同样存在安全性、易用性、通用性上的问题，现今基本是一条已经被放弃作为独立Layer2的技术路线。</p>
+<p>Rollup方案仍然保留了Plasma借用二层的运营者来接收、存储和提交状态变更的思想，但考虑到此前方案中将数据存储在链下的思路衍生出了安全性和易用性问题，而直接将数据存储在链上无法实现效率提升，因此诞生了将数据压缩上链的思路。交易数据上链后最直接解决的是用户易用性的问题，链上的数据是公开透明的，意味不再需要为了防欺诈而要求用户做出一些十分伤害体验的行为，如保持一定的上线频率以及自行保存用于自证清白的数据(闪电网络和Plasma都有此要求)。同时，数据上链也间能接解决了一些可能衍生的安全问题，如闪电网络瞭望塔隐私泄露、Plasma上的批量退出等在Rollup的场景下是不需要被考虑的。</p>
+<h1 id="Rollup技术核心要点"><a href="#Rollup技术核心要点" class="headerlink" title="Rollup技术核心要点"></a>Rollup技术核心要点</h1><p>虽然不同Rollup的具体实现会不一样，但均需要解决三个共性的问题：如何实现交易压缩、如何将二层的状态转换同步到一层以及如何保证二层运营者如实提交了二层的所有状态转换。我们将在下面三个小节分别讨论。</p>
+<h2 id="如何实现交易压缩？"><a href="#如何实现交易压缩？" class="headerlink" title="如何实现交易压缩？"></a>如何实现交易压缩？</h2><p>关于为什么要将数据上链，在上一章中已经有阐述。上链后，二层交易数据在链上的数据可用性(或者说数据有效性、数据可获得性)能得到保障。但数据如果原样上链，是难以达到通过二层提升效率的目的的，所以会进行压缩。讲到压缩，大家通常的理解是对占用字节数的压缩，也就是体积上的压缩，其实不然。压缩主要是对交易消耗Gas数的压缩，因为以太坊上的区块限制是以Gas为限制而不是字节数，更小的字节数对应着更小的存储占用，但不等同于更小的Gas消耗。Rollup中的压缩，一方面确实压缩了交易占用的字节数，另一方面也会减少交易执行的计算量以降低Gas消耗。</p>
+<h2 id="如何将二层的状态转换同步到一层？"><a href="#如何将二层的状态转换同步到一层？" class="headerlink" title="如何将二层的状态转换同步到一层？"></a>如何将二层的状态转换同步到一层？</h2><p>上一小节在讲交易压缩时提到二层运营者除了提交交易信息外，还会提交批次交易发生前后的状态根。这个状态根与以太坊一层的状态树的状态根类似，是账户状态的归集。</p>
+<p>Rollup的状态可以用Merkle树来组织，叶子节点为账户状态，中间节点存放层层向上进行哈希计算的信息，根节点是最终的哈希值，是二层所有账户状态的摘要。二层的交易会改变交易相关的账户的状态，引起叶子节点的信息变动，最终导致根哈希值的变动。二层的运营者会在本地维护二层账户的状态树，记录批次交易发生前后的根哈希值，在上传批次交易时将此二哈希值一并上传。</p>
+<h2 id="如何防止二层运营者欺诈？"><a href="#如何防止二层运营者欺诈？" class="headerlink" title="如何防止二层运营者欺诈？"></a>如何防止二层运营者欺诈？</h2><p>Rollup诞生之前的闪电网络和Plasma采用的均是欺诈证明的方式，而Op系技术承袭二者思想同样使用了该方式。即，在运营者提交信息时不做关于状态转换合法性的校验，但是会为该批次的交易的提交预留挑战期。如果在挑战期内，无人对其合法性做出挑战则交易被确认；若有，则挑战者需提供欺诈证明，证明运营者作恶。</p>
+<p>欺诈证明是相对容易的实现方式(相比后面要提到的有效性证明)，但带来的代价是用户体验和资金效率的牺牲。在没有保证链上数据有效性的闪电网络和Plasma的方案中，需要用户保证一定的在线频率(也叫做用户活性)来防止欺诈，同时，用户资金无法及时取出需要等待挑战期结束。在Optimistic Rollup下，虽然也是使用欺诈证明，但对用户体验和资金效率伤害的情况有所改善。由于数据上链，挑战者可以由除用户外的第三方提交，降低了对用户活性的假设大幅改善体验。另外，Op方案下，虽然仍然存在挑战期，但是对于非欺诈的交易，交易的最终性是可以预期的，Op的使用者可以自行搭建验证节点快速验证交易合法性而不必等到挑战期结束，虽然交易仍然要等到挑战期结束后才能被主链确认，但其最终性可以被快速确认，利用这一点流动性提供商可以提前为用户释放资金流动性。不过，这种解决方案并不是内嵌在Op之中，需要依赖应用解决方案</p>
+<h1 id="ZK-Rollups"><a href="#ZK-Rollups" class="headerlink" title="ZK Rollups"></a>ZK Rollups</h1><p>ZK Rollups, ZKSnark 或者叫 Zero Knowledge Rollups，顾名思义，通过零知识证明验证来进行 Rollups 环节。零知识证明，也是区块链公链项目 Algorand 的创始人 Silvio Micali 在密码学的主要贡献之一。</p>
+<p><img src="/images/2-2.png"></p>
+<p>ZK 的四大特点：</p>
+<ol>
+<li><p>Zero Knowledge: 验证者无需看到交易平台有数据</p>
+</li>
+<li><p>Succinct: 言简意赅的，简练的</p>
+</li>
+<li><p>Non-Interactive: 无需知道验证者是谁</p>
+</li>
+<li><p>Argument of Knowledge: 证明交易的真实性与正确性</p>
+</li>
+</ol>
+<p>所以 Zk Rollups 的核心方法，即通过严谨复杂的验证算法，Layer 2 协议中的验证者（ZkSnarker&#x2F; Validator）来认证不同数据的真实性 (Validity Proof)，从而将认证结果打包。以太坊网络排除多余工作信息后，可以直接将存有大量压缩签名信息的数据 block 吸收进网络。</p>
+<p>任何人都可以参与网络认证，成为认证者，所以，本质上来说，ZKSnark 也是一种 PoW 共识机制的 Layer 2 协议。</p>
+<p>【优点】：</p>
+<p>Layer 2 被以太坊验证的速度很快，可以很快把存在 Layer 2 的资产，提币回 Layer 1 以太坊。很适合应用在 Payment，银行，交易平台等需要快速结算的业务</p>
+<p>【缺点】：</p>
+<p>由于算法较为复杂，对应用开发有点门槛。但如果未来能基于算法，开发出对 Dapp 更友好的模式，ZK 还是最具有长期扩容价值的方法</p>
+<h1 id="Optimistic-Rollups"><a href="#Optimistic-Rollups" class="headerlink" title="Optimistic Rollups"></a>Optimistic Rollups</h1><p>Optimistic 的方法如其名字的意思：乐观的，开始认为所有发送的交易都是值得信赖认证过的，Layer 2 验证者需要先质押 Token 作为保证金，如果验证过程中，别人发现了有问题的打包，那么该验证者（Sequencer）将被罚款部分 Token，并把其作为奖励给与发现问题的人。每次数据打包后，会有验证期，以供其他验证者检查是否有问题，是否需要重新退回打包。</p>
+<p><img src="/images/2-3.png"> </p>
+<p>Op Rollups 与 ZK Rollups 方法本质的区别是，ZK 所有人都可以参与通过 PoW 认证来参与认证，而 OP 里面更倾向于选择一组值得信赖的认证者，监督整个打包交易的过程。</p>
+<p>【优点】：</p>
+<p>适合开发 Dapp，可以几乎无缝迁移原本在 Layer 1 的项目，同时也在开发相应的 OVM 虚拟机</p>
+<p>【缺点】：</p>
+<p>Layer 2 提币到 Layer 1 的速度较慢，通常需要 1 周以上（因为需要给验证者验证打包的真实性）但目前正在有优化的补充协议帮助加速此种模式的速度。有验证者作恶的风险成本。</p>
+
+    </div>
+    </article>
+</div>
+
+    <div class="_toc">
+        <strong class="toc-title">
+        Contents
+        </strong>
+        <div class="toc-content">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRullups%EF%BC%9F"><span class="toc-text">什么是Rullups？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rollup%E7%9A%84%E6%BC%94%E8%BF%9B"><span class="toc-text">Rollup的演进</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rollup%E6%8A%80%E6%9C%AF%E6%A0%B8%E5%BF%83%E8%A6%81%E7%82%B9"><span class="toc-text">Rollup技术核心要点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%BA%A4%E6%98%93%E5%8E%8B%E7%BC%A9%EF%BC%9F"><span class="toc-text">如何实现交易压缩？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86%E4%BA%8C%E5%B1%82%E7%9A%84%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%90%8C%E6%AD%A5%E5%88%B0%E4%B8%80%E5%B1%82%EF%BC%9F"><span class="toc-text">如何将二层的状态转换同步到一层？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E4%BA%8C%E5%B1%82%E8%BF%90%E8%90%A5%E8%80%85%E6%AC%BA%E8%AF%88%EF%BC%9F"><span class="toc-text">如何防止二层运营者欺诈？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZK-Rollups"><span class="toc-text">ZK Rollups</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Optimistic-Rollups"><span class="toc-text">Optimistic Rollups</span></a></li></ol>
+        </div>
+    </div>
+
+</section>
+
+
+    <nav class="post-nav">
+        
+            <div class="page-tags">
+                
+                    <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8AL2/">以太坊L2</a>
+                
+            </div>
+        
+    </nav>
+
+
+
+    <nav class="paginator clearfix">
+        
+            <a class="prev" href="/2022/05/23/StarkNet%E5%8E%9F%E7%94%9F%E6%8A%BD%E8%B1%A1%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/">
+                <i class="iconfont icon-left"></i>
+                <span class="prev-text">StarkNet原生抽象账户模型</span>
+            </a>
+        
+        
+            <a class="next" href="/2022/02/24/starknet%E4%BB%8B%E7%BB%8D/">
+                
+                <span class="prev-text">starknet介绍</span>
+                <i class="iconfont icon-right"></i>
+            </a>
+        
+    </nav>
+
+
+            </main>
+            <div class="copyright">
+  <div class="text">Powered By
+    <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/zjx137/hexo-theme-Tsu">Tsu</a> &copy 2019
+  </div>
+</div>
+
+        </div>
+    <div class="back-to-top" id="back-to-top">
+            <i class="iconfont icon-up"></i>
+    </div>
+        
+    </body>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/back-to-top.js"></script>
+
+    
+<script src="/js/scroll.js"></script>
+
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>
